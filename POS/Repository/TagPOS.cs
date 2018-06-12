@@ -12,11 +12,11 @@ namespace POSS.Repository
     {
         PosDatabaseEntities POS = new PosDatabaseEntities();
 
-        public bool DeleteItem(int? id)
+        public bool DeleteItem(int id)
         {
             try
             {
-                if (id > 0)
+                if(id > 0)
                 {
                     Tag tag = POS.Tags.FirstOrDefault(x => x.id == id);
                     if (tag != null)
@@ -87,14 +87,20 @@ namespace POSS.Repository
             {
                 if (tagModel.id > 0)
                 {
-                    Tag tag = new Tag();
-                    tag.Name = tagModel.Name;
-                    tag.Description = tagModel.Description;
-                    tag.ItemId = tagModel.ItemId;
-                    tag.TagPrice = tagModel.TagPrice;
-                    POS.Tags.Add(tag);
-                    POS.SaveChanges();
-                    return true;
+                    Tag tag = POS.Tags.Where(x => x.id == tagModel.id).FirstOrDefault();
+                    if (tag == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        tag.Name = tagModel.Name;
+                        tag.Description = tagModel.Description;
+                        tag.ItemId = tagModel.ItemId;
+                        tag.TagPrice = tagModel.TagPrice;
+                        POS.SaveChanges();
+                        return true;
+                    }
                 }
                 else
                 {

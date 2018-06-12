@@ -12,7 +12,7 @@ namespace POSS.Repository
     {
         PosDatabaseEntities POS = new PosDatabaseEntities();
 
-        public bool DeleteCategory(int? id)
+        public bool DeleteCategory(int id)
         {
             try
             {
@@ -70,14 +70,13 @@ namespace POSS.Repository
             }
             catch (Exception e)
             {
-
                 throw e;
             }  
         }
         public bool InsertCategory(CategoryModel category)
         {
             try
-            {    if( category.Id > 0 )
+            {   if( category.Id > 0 )
                 {
                     Category cate = new Category();
                     cate.Name = category.Name;
@@ -87,16 +86,18 @@ namespace POSS.Repository
                 }
                 else
                 {
-                    Category cate = new Category();
-                    cate.Name = category.Name;
-                    POS.Categories.Add(cate);
-                    POS.SaveChanges();
-                    return true;
+                    Category cate = POS.Categories.Where(x=>x.Id == category.Id).FirstOrDefault();
+                    if (cate != null)
+                    {
+                        cate.Name = category.Name;
+                        POS.SaveChanges();
+                        return true;
+                    }
+                    return false;
                 }
             }
             catch (Exception e)
             {
-
                 throw e;
             }
         }

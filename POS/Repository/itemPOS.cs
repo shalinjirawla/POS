@@ -89,14 +89,20 @@ namespace POSS.Repository
             {
                 if (itemModel.Id >0)
                 {
-                    Item item = new Item();
-                    item.Name = itemModel.Name;
-                    item.Description = itemModel.Description;
-                    item.CategoryId = itemModel.CategoryId;
-                    item.ItemPrice = itemModel.ItemPrice;
-                    POS.Items.Add(item);
-                    POS.SaveChanges();
-                    return true;
+                    Item item = POS.Items.Where(x => x.Id == itemModel.Id).FirstOrDefault();
+                    if (item == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        item.Name = itemModel.Name;
+                        item.Description = itemModel.Description;
+                        item.CategoryId = itemModel.CategoryId;
+                        item.ItemPrice = itemModel.ItemPrice;
+                        POS.SaveChanges();
+                        return true;
+                    }
                 }
                 else
                 {

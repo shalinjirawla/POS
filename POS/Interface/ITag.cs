@@ -15,6 +15,6 @@ namespace POSS.Interface
 
         TagModel GetItemById(int id);
 
-        bool DeleteItem(int? id);
+        bool DeleteItem(int id);
     }
 }

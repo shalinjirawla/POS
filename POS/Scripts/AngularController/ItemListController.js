@@ -53,7 +53,6 @@
 	};
 
 	$scope.OpenModal = function () {
-		
 		$("#myModal").modal("show");
 		$scope.showModal = true;
 	};
@@ -64,8 +63,8 @@
 		});
 	};
 	$scope.SaveData = function () {
-		
 		var itemModel = {
+			Id: $scope.FormData.Id,
 			Name: $scope.FormData.Name,
 			Description: $scope.FormData.Description,
 			CategoryId: $scope.FormData.CategoryId,
@@ -73,11 +72,13 @@
 		};
 
 		Item_Service.saveCategory(itemModel).then((response) => {
-			alert("Success");
+			$scope.CallHome();
+			$scope.getCategories();
 		});
 	};
 	$scope.EditData = function (id) {
 		Item_Service.editCategory(id).then((response) => {
+			debugger
 			response.data.CategoryId = "" + response.data.CategoryId;
 			$scope.FormData = response.data;
 			$("#myModal").modal("show");

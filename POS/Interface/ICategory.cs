@@ -8,6 +8,6 @@ namespace POSS.Interface
         List<CategoryModel> GetCategoriesDetail();
         CategoryModel GetCategoryById(int id);
         bool InsertCategory(CategoryModel category);
-        bool DeleteCategory(int? id);
+        bool DeleteCategory(int id);
     }
 }

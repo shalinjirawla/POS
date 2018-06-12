@@ -144,7 +144,6 @@ namespace POSS.Repository
             }
             catch (Exception e)
             {
-
                 throw e;
             }
         }
@@ -183,10 +182,8 @@ namespace POSS.Repository
             }
             catch (Exception e)
             {
-
                 throw e;
             }
-            throw new NotImplementedException();
         }
         public List<TagModel> getTagByItemId(int id)
         {
@@ -210,10 +207,8 @@ namespace POSS.Repository
             }
             catch (Exception e)
             {
-
                 throw e;
             }
-            throw new NotImplementedException();
         }
     }
 }
