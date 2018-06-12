@@ -78,15 +78,7 @@ namespace POSS.Repository
             try
             {   if( category.Id > 0 )
                 {
-                    Category cate = new Category();
-                    cate.Name = category.Name;
-                    POS.Categories.Add(cate);
-                    POS.SaveChanges();
-                    return true;
-                }
-                else
-                {
-                    Category cate = POS.Categories.Where(x=>x.Id == category.Id).FirstOrDefault();
+                    Category cate = POS.Categories.Where(x => x.Id == category.Id).FirstOrDefault();
                     if (cate != null)
                     {
                         cate.Name = category.Name;
@@ -94,6 +86,15 @@ namespace POSS.Repository
                         return true;
                     }
                     return false;
+                }
+                else
+                {
+                    Category cate = new Category();
+                    cate.Name = category.Name;
+                    POS.Categories.Add(cate);
+                    POS.SaveChanges();
+                    return true;
+                    
                 }
             }
             catch (Exception e)
