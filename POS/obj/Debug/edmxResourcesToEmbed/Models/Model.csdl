@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="UPosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Items" Relationship="Self.FK_Item_Category" FromRole="Category" ToRole="Item" />
+  </EntityType>
+  <EntityType Name="Item">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="ItemPrice" Type="Double" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_Item_Category" FromRole="Item" ToRole="Category" />
+    <NavigationProperty Name="Tags" Relationship="Self.FK__Tags__ItemId__1BFD2C07" FromRole="Item" ToRole="Tags" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="3" />
+    <Property Name="IsPaid" Type="Boolean" />
+    <Property Name="TableNo" Type="Int32" />
+    <Property Name="Amount" Type="Double" />
+    <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Order" FromRole="Order" ToRole="OrderItem" />
+    <NavigationProperty Name="Payments" Relationship="Self.FK_PaymentTable_Order" FromRole="Order" ToRole="Payment" />
+  </EntityType>
+  <EntityType Name="OrderItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" />
+    <Property Name="ItemId" Type="Int32" />
+    <Property Name="Qty" Type="Int32" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
+    <NavigationProperty Name="OrderItemTags" Relationship="Self.FK_OrderItemTag_OrderItem" FromRole="OrderItem" ToRole="OrderItemTag" />
+  </EntityType>
+  <EntityType Name="OrderItemTag">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderItemId" Type="Int32" />
+    <Property Name="TagId" Type="Int32" />
+    <NavigationProperty Name="OrderItem" Relationship="Self.FK_OrderItemTag_OrderItem" FromRole="OrderItemTag" ToRole="OrderItem" />
+  </EntityType>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" />
+    <Property Name="Total" Type="Double" />
+    <Property Name="PaymentMode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ReceivedBy" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Order" Relationship="Self.FK_PaymentTable_Order" FromRole="Payment" ToRole="Order" />
+  </EntityType>
+  <EntityType Name="RoomManagement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="NoOfTables" Type="Int32" />
+    <NavigationProperty Name="TableManagements" Relationship="Self.FK__TableMana__RoomI__66603565" FromRole="RoomManagement" ToRole="TableManagement" />
+  </EntityType>
+  <EntityType Name="TableManagement">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TableNo" Type="Int32" />
+    <Property Name="NoOfChair" Type="Int32" />
+    <Property Name="RoomId" Type="Int32" />
+    <NavigationProperty Name="RoomManagement" Relationship="Self.FK__TableMana__RoomI__66603565" FromRole="TableManagement" ToRole="RoomManagement" />
+  </EntityType>
+  <EntityType Name="Tag">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ItemId" Type="Int32" />
+    <Property Name="TagPrice" Type="Double" />
+    <NavigationProperty Name="Item" Relationship="Self.FK__Tags__ItemId__1BFD2C07" FromRole="Tags" ToRole="Item" />
+  </EntityType>
+  <Association Name="FK_Item_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="Item" Type="Self.Item" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Item">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Tags__ItemId__1BFD2C07">
+    <End Role="Item" Type="Self.Item" Multiplicity="0..1" />
+    <End Role="Tags" Type="Self.Tag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Item">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tags">
+        <PropertyRef Name="ItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItem_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItem">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentTable_Order">
+    <End Role="Order" Type="Self.Order" Multiplicity="0..1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Order">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_OrderItemTag_OrderItem">
+    <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="0..1" />
+    <End Role="OrderItemTag" Type="Self.OrderItemTag" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OrderItem">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="OrderItemTag">
+        <PropertyRef Name="OrderItemId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TableMana__RoomI__66603565">
+    <End Role="RoomManagement" Type="Self.RoomManagement" Multiplicity="0..1" />
+    <End Role="TableManagement" Type="Self.TableManagement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RoomManagement">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="TableManagement">
+        <PropertyRef Name="RoomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PosDatabaseEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Items" EntityType="Self.Item" />
+    <EntitySet Name="Orders" EntityType="Self.Order" />
+    <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
+    <EntitySet Name="OrderItemTags" EntityType="Self.OrderItemTag" />
+    <EntitySet Name="Payments" EntityType="Self.Payment" />
+    <EntitySet Name="RoomManagements" EntityType="Self.RoomManagement" />
+    <EntitySet Name="TableManagements" EntityType="Self.TableManagement" />
+    <EntitySet Name="Tags" EntityType="Self.Tag" />
+    <AssociationSet Name="FK_Item_Category" Association="Self.FK_Item_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Item" EntitySet="Items" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Tags__ItemId__1BFD2C07" Association="Self.FK__Tags__ItemId__1BFD2C07">
+      <End Role="Item" EntitySet="Items" />
+      <End Role="Tags" EntitySet="Tags" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItem_Order" Association="Self.FK_OrderItem_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="OrderItem" EntitySet="OrderItems" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentTable_Order" Association="Self.FK_PaymentTable_Order">
+      <End Role="Order" EntitySet="Orders" />
+      <End Role="Payment" EntitySet="Payments" />
+    </AssociationSet>
+    <AssociationSet Name="FK_OrderItemTag_OrderItem" Association="Self.FK_OrderItemTag_OrderItem">
+      <End Role="OrderItem" EntitySet="OrderItems" />
+      <End Role="OrderItemTag" EntitySet="OrderItemTags" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TableMana__RoomI__66603565" Association="Self.FK__TableMana__RoomI__66603565">
+      <End Role="RoomManagement" EntitySet="RoomManagements" />
+      <End Role="TableManagement" EntitySet="TableManagements" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

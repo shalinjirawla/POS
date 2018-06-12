@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Room";
+}
+
+<script src="~/Scripts/AngularController/RoomController.js"></script>
+<div ng-controller="RoomController">
+	<div class="row">
+		<div class="card col-md-4 mds cardCustom" style="width: 18rem;margin:10px;" ng-repeat="data in DSDasd" ng-click="CallME(data.id,data.Name)">
+			<div class="card-body">
+				<h5 class="card-title">{{ data.Name }}</h5>
+				<h6 class="card-subtitle mb-2 text-muted">Room</h6>
+				<p class="card-text">
+					No of Rooms
+					{{ data.NoOfTables }}
+				</p>
+				@*<a href="#" class="card-link">Card link</a>
+				<a href="#" class="card-link">Another link</a>*@
+			</div>
+		</div>
+	</div>
+</div>

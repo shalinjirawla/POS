@@ -1,0 +1,31 @@
+﻿
+@{
+ ViewBag.Title = "Tables";
+}
+<script src="~/Scripts/AngularController/TableController.js"></script>
+
+<script>
+	var GlobId = 0;
+	$(document).ready(function () {
+		GlobId = @ViewBag.id;
+
+		var roomname = localStorage.getItem("RoomType");
+		if (roomname != null || roomname != "") {
+			$(".float-left")[0].innerHTML = roomname;
+		}
+	});
+</script>
+<div ng-controller="TableController">
+	<div class="row">
+		<div class="card col-md-2 mds cardCustom" style="width: 18rem;margin:10px;" ng-repeat="data in AllTables" ng-click="loadTable(this)"   ng-class="{'mycls': data.orderid != '0' || data.orderid != '0'}">
+			<div class="card-body">
+				<h5 class="card-title text-center">Table</h5>
+				<h6 class="card-subtitle mb-2 text-muted text-center">{{ data.TableNo }}</h6>
+				<p class="card-text text-center">
+					Chairs : {{ data.NoOfChair }}
+				</p>
+				<input type="hidden" class="order_id" value="{{data.orderid}}" />
+			</div>
+		</div>
+	</div>
+</div>
