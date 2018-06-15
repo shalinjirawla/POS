@@ -39,7 +39,7 @@
 	};
 
 	$scope.getAllCat = function () {
-		Category_Service.getCategories().then((response) => {
+        Category_Service.getItemLists().then((response) => {
 			$scope.Categories = response.data;
 		});
 	};

@@ -10,5 +10,12 @@ namespace POSS.Interface
     public interface IRoom
     {
         List<ManagementModel> GetManagements();
+
+        bool InsertRoom(ManagementModel managementModel );
+
+        ManagementModel GetRoomById(int id);
+
+        bool DeleteRoom(int id);
+
     }
 }

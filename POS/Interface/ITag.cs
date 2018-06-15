@@ -9,6 +9,8 @@ namespace POSS.Interface
 {
     public interface ITag
     {
+        List<TagModel> GetTagsWithoutId();
+
         List<TagModel> GetTagDetails(int id);
 
         bool InsertTag( TagModel tagModel);

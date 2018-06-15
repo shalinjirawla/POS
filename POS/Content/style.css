@@ -51,10 +51,10 @@ body {
   font-size: 1rem;
   color: #444444; }
 
-h1, h2 {
+/*h1, h2 {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   padding-bottom: 1.2rem;
-  border-bottom: 1px solid #dfdfdf; }
+  border-bottom: 1px solid #dfdfdf; }*/
 
 h3, h4, h5, h6 {
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif; }
@@ -321,7 +321,7 @@ code {
 	overflow-x: hidden;
 	overflow-y: hidden;
 	/* Scrollable contents if viewport is shorter than content. */
-	background: #595a8e;
+	background: #00115b;
 }
   .sidebar a {
     color: #ffffff;
@@ -388,7 +388,7 @@ code {
   right: 1rem; }
 
 .sidebar a:focus, .sidebar a:hover, .sidebar a:active {
-  background-color: #6365d2 !important; }
+  background-color: #1f379c !important; }
 
 @media screen and (max-width: 576px) {
   #wrapper .sidebar-nav {
@@ -472,7 +472,7 @@ code {
 .page-header {
 	font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 	margin-top: 0rem;
-	background-color: #6c6ea7;
+	background-color: #00115b;
 	margin-bottom: 2.4rem;
 	padding-bottom: 1rem;
 	border-bottom: 1px solid #dfdfdf;
@@ -837,17 +837,30 @@ table, td, tr, th, thead {
 		-moz-box-shadow: rgba(0, 0, 0, 0.4) 0 5px 10px 0;
 	}
 .cardCustom {
-	border-color: #494bb3;
-	color: #494bb3;
-	background-color: #f5f5f5;
+    border-color: #00115b;
+    color: #00115b;
+    background-color: #f5f5f5;
 }
 .cardCustom:hover {
 	background-color: #ffffff;
 	
 }
 .mycls {
-	border-bottom: 4px solid #6c6ea7;
+    border-bottom: 6px solid #242656;
 }
 .username mt-1 {
 	color: aliceblue;
 }
+.ui-grid-viewport .ui-grid-cell-contents {
+    word-wrap: break-word;
+    white-space: normal !important;
+}
+
+.ui-grid-row, .ui-grid-cell {
+    height: auto !important;
+}
+
+    .ui-grid-row div[role=row] {
+        display: flex;
+        align-content: stretch;
+    }

@@ -37,5 +37,30 @@ namespace POSS.Controllers
             ViewBag.Title = "ItemList";
             return View();
         }
+        public ActionResult TableList()
+        {
+            ViewBag.Title = "TableList";
+            return View();
+        }
+        public ActionResult TagList()
+        {
+            ViewBag.Titel = "TagList";
+            return View();
+        }
+        public ActionResult RoomList()
+        {
+            ViewBag.Titel = "RoomList";
+            return View();
+        }
+        public ActionResult CategoryList()
+        {
+            ViewBag.Titel = "CategoryList";
+            return View();
+        }
+        public ActionResult OrderList()
+        {
+            ViewBag.Titel = "OrderList";
+            return View();
+        }
     }
 }

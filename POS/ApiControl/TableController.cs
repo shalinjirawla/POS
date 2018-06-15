@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using POSS.Interface;
 using POSS.Repository;
+using POSS.ViewModel;
 
 namespace POSS.ApiControl
 {
@@ -52,6 +53,20 @@ namespace POSS.ApiControl
             var Data = Table.getTagByItemId(id);
             return Json(Data);
         }
-
+        public IHttpActionResult insertTable(TableManagementModel tableManagementModel)
+        {
+            var Data = Table.InsertTable(tableManagementModel);
+            return Json(Data);
+        }
+        public IHttpActionResult deleteTable(int id)
+        {
+            var Data = Table.DeleteTable( id);
+            return Json(Data);
+        }
+        public IHttpActionResult GetItemDetail()
+        {
+            var Data = Table.GetItemDetail();
+            return Json(Data);
+        }
     }
 }

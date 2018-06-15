@@ -183,6 +183,7 @@
   <ItemGroup>
     <Compile Include="ApiControl\CategoryController.cs" />
     <Compile Include="ApiControl\ItemController.cs" />
+    <Compile Include="ApiControl\OrderController1.cs" />
     <Compile Include="ApiControl\RoomController.cs" />
     <Compile Include="ApiControl\TableController.cs" />
     <Compile Include="ApiControl\TagController.cs" />
@@ -226,6 +227,7 @@
     </Compile>
     <Compile Include="Interface\ICategory.cs" />
     <Compile Include="Interface\Iitem.cs" />
+    <Compile Include="Interface\IOrder.cs" />
     <Compile Include="Interface\IRoom.cs" />
     <Compile Include="Interface\ITable.cs" />
     <Compile Include="Interface\ITag.cs" />
@@ -274,6 +276,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\CategoryPOS.cs" />
     <Compile Include="Repository\itemPOS.cs" />
+    <Compile Include="Repository\OrderPOS.cs" />
     <Compile Include="Repository\RoomPOS.cs" />
     <Compile Include="Repository\TablePOS.cs" />
     <Compile Include="Repository\TagPOS.cs" />
@@ -294,6 +297,7 @@
     <Content Include="Content\font-awesome.min.css" />
     <Content Include="Content\image\profile-pic.jpg" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\sweetalert.css" />
     <Content Include="Content\ui-grid.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
@@ -311,13 +315,21 @@
     </Content>
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AngularController\CategoryController.js" />
+    <Content Include="Scripts\AngularController\CategoryListController.js" />
     <Content Include="Scripts\AngularController\ItemListController.js" />
+    <Content Include="Scripts\AngularController\OrderListController.js" />
+    <Content Include="Scripts\AngularController\RoomListController.js" />
+    <Content Include="Scripts\AngularController\TableListController.js" />
+    <Content Include="Scripts\AngularController\TagListController.js" />
     <Content Include="Scripts\AngularServices\Category_Service.js" />
     <Content Include="Scripts\AngularServices\Item_Service.js" />
+    <Content Include="Scripts\AngularServices\Order_Service.js" />
     <Content Include="Scripts\AngularServices\POSS_Service.js" />
     <Content Include="Scripts\AngularController\RoomController.js" />
     <Content Include="Scripts\AngularController\TableController.js" />
+    <Content Include="Scripts\AngularServices\Room_Service.js" />
     <Content Include="Scripts\AngularServices\Table_Service.js" />
+    <Content Include="Scripts\AngularServices\Tag_Service.js" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -371,6 +383,7 @@
     <Content Include="Scripts\popper.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\sweetalert.min.js" />
     <Content Include="Scripts\ui-grid.core.min.js" />
     <Content Include="Scripts\ui-grid.min.js" />
     <Content Include="Scripts\ui-grid.pagination.min.js" />
@@ -392,6 +405,11 @@
     <Content Include="Views\Home\Tables.cshtml" />
     <Content Include="Views\Home\Category.cshtml" />
     <Content Include="Views\Home\ItemList.cshtml" />
+    <Content Include="Views\Home\CategoryList.cshtml" />
+    <Content Include="Views\Home\TableList.cshtml" />
+    <Content Include="Views\Home\TagList.cshtml" />
+    <Content Include="Views\Home\RoomList.cshtml" />
+    <Content Include="Views\Home\OrderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

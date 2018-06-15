@@ -1,23 +1,28 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width" />
-	<title>@ViewBag.Title</title>
-	@Styles.Render("~/Content/css")
-	@Scripts.Render("~/bundles/jquery")
-	@*@Scripts.Render("~/bundles/AngularUIGrid")*@
-	@Scripts.Render("~/bundles/bootstrap")
-	@RenderSection("scripts", required: false)
-	<script src="~/Scripts/angular.min.js"></script>
-	<script src="~/Scripts/ui-grid.min.js"></script>
-	<script src="~/Scripts/ui-grid.pagination.min.js"></script>
-	<script src="~/Scripts/ui-grid.core.min.js"></script>
-	<script src="~/Scripts/AngularController/app.js"></script>
-	<script src="~/Scripts/AngularServices/POSS_Service.js"></script>
-	<script src="~/Scripts/AngularServices/Table_Service.js"></script>
-	<script src="~/Scripts/AngularServices/Category_Service.js"></script>
-	<script src="~/Scripts/AngularServices/Item_Service.js"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/AngularUIGrid")*@
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/Scripts/ui-grid.min.js"></script>
+    <script src="~/Scripts/ui-grid.pagination.min.js"></script>
+    <script src="~/Scripts/ui-grid.core.min.js"></script>
+    <script src="~/Scripts/AngularController/app.js"></script>
+    <script src="~/Scripts/AngularServices/POSS_Service.js"></script>
+    <script src="~/Scripts/AngularServices/Table_Service.js"></script>
+    <script src="~/Scripts/AngularServices/Category_Service.js"></script>
+    <script src="~/Scripts/AngularServices/Item_Service.js"></script>
+    <script src="~/Scripts/AngularServices/Tag_Service.js"></script>
+    <script src="~/Scripts/AngularServices/Room_Service.js"></script>
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script src="~/Scripts/AngularServices/Order_Service.js"></script>
 </head>
 <body ng-app="MyRestoApp" ng-controller="MyRestoController">
 
@@ -44,7 +49,7 @@
 									<table class="magtable">
 										<tr>
 											<td>
-												<a href="http://www.jquery2dotnet.com">Category</a>
+												<a href="@Url.Action("CategoryList","Home")">Category</a>
 											</td>
 										</tr>
 										<tr>
@@ -54,22 +59,22 @@
 										</tr>
 										<tr>
 											<td>
-												<a href="http://www.jquery2dotnet.com">Room</a>
+												<a href="@Url.Action("RoomList","Home")">Room</a>
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<a href="http://www.jquery2dotnet.com">Tag</a>
+												<a href="@Url.Action("TagList","Home")">Tag</a>
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<a href="http://www.jquery2dotnet.com">Table</a>
+												<a href="@Url.Action("TableList","Home")">Table</a>
 											</td>
 										</tr>
 										<tr>
 											<td>
-												<a href="http://www.jquery2dotnet.com">Report</a>
+												<a href="#">Report</a>
 											</td>
 										</tr>
 									</table>

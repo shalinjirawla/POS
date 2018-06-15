@@ -2357,7 +2357,7 @@ select.form-control:focus::-ms-value {
     padding: .375rem .75rem;
     font-size: 1rem;
     line-height: 1.5;
-    border-radius: .25rem;
+    border-radius: 0;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out
 }
 
@@ -2394,14 +2394,14 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
     color: #fff;
-    background-color: #007bff;
-    border-color: #007bff
+    background-color: #ffa300;
+    border-color: #ffa300
 }
 
     .btn-primary:hover {
         color: #fff;
-        background-color: #0069d9;
-        border-color: #0062cc
+        background-color: #a97821;
+        border-color: #a97821
     }
 
     .btn-primary.focus, .btn-primary:focus {
@@ -2416,8 +2416,8 @@ a.btn.disabled, fieldset:disabled a.btn {
 
     .btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
         color: #fff;
-        background-color: #0062cc;
-        border-color: #005cbf
+        background-color: #fbbc00;
+        border-color: #fbbc00
     }
 
         .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show > .btn-primary.dropdown-toggle:focus {
@@ -2784,9 +2784,9 @@ a.btn.disabled, fieldset:disabled a.btn {
 }
 
     .btn-outline-warning:hover {
-        color: #212529;
-        background-color: #ffc107;
-        border-color: #ffc107
+        color: #22338c;
+        background-color: #ffa300;
+        border-color: #ffa300
     }
 
     .btn-outline-warning.focus, .btn-outline-warning:focus {

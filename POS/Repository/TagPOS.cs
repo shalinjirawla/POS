@@ -46,6 +46,7 @@ namespace POSS.Repository
                     tag.id = qur.id;
                     tag.Name = qur.Name;
                     tag.ItemId = qur.ItemId;
+                    tag.Description = qur.Description;
                     tag.TagPrice = (float)qur.TagPrice;
                 }
                 return tag;
@@ -77,6 +78,31 @@ namespace POSS.Repository
             }
             catch (Exception e)
             {
+                throw e;
+            }
+        }
+
+        public List<TagModel> GetTagsWithoutId()
+        {
+            try
+            {
+                List<TagModel> tagModels = new List<TagModel>();
+                var qurey = POS.Tags.ToList();
+                foreach (var item in qurey)
+                {
+                    TagModel TagModel = new TagModel();
+                    TagModel.id = item.id;
+                    TagModel.Name = item.Name;
+                    TagModel.Description = item.Description;
+                    TagModel.ItemId = item.ItemId;
+                    TagModel.TagPrice = (float)item.TagPrice;
+                    tagModels.Add(TagModel);
+                }
+                return tagModels;
+            }
+            catch (Exception e)
+            {
+
                 throw e;
             }
         }

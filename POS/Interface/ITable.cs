@@ -16,5 +16,10 @@ namespace POSS.Interface
         List<CategoryModel> getCategories();
         List<ItemModel> getItemByCategoryId(int id);
         List<TagModel> getTagByItemId(int id);
+
+        List<TableManagementModel> GetItemDetail();
+        bool InsertTable(TableManagementModel tableManagementModel);
+        bool DeleteTable(int id);
+     
     }
 }

@@ -27,12 +27,13 @@ namespace POSS.ApiControl
             var Data = Category.GetCategoryById(id);
             return Json(Data);
         }
+        [HttpPost]
         public IHttpActionResult insertCategory(CategoryModel category)
         {
             var Data = Category.InsertCategory( category);
             return Json(Data);
         }
-        [HttpDelete]
+       
         public IHttpActionResult deleteCategory(int id)
         {
             var Data = Category.DeleteCategory(id);

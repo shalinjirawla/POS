@@ -5,6 +5,7 @@ using System.Linq;
 using POSS.ViewModel;
 using POSS.Models;
 
+
 namespace POSS.Repository
 {
     public class TablePOS : ITable
@@ -14,6 +15,29 @@ namespace POSS.Repository
         {
             posDatabase = _posDatabase;
         }
+
+        public bool DeleteTable(int id)
+        {
+            try
+            {
+                if (id > 0)
+                {
+                    TableManagement table = posDatabase.TableManagements.FirstOrDefault(x => x.Id == id);
+                    if (table != null)
+                    {
+                        posDatabase.TableManagements.Remove(table);
+                        posDatabase.SaveChanges();
+                    }
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
         public List<OrderModel> GetAllUnPaid(int id)
         {
             try
@@ -89,6 +113,31 @@ namespace POSS.Repository
                 throw e;
             }
         }
+
+        public List<TableManagementModel> GetItemDetail()
+        {
+            try
+            {
+                List<TableManagementModel> tableManagementModels = new List<TableManagementModel>();
+                var qurey = posDatabase.TableManagements.ToList();
+                foreach (var item in qurey)
+                {
+                    TableManagementModel tableManagement = new TableManagementModel();
+                    tableManagement.id = item.Id;
+                    tableManagement.NoOfChair = (int)item.NoOfChair;
+                    tableManagement.TableNo = (int)item.TableNo;
+                    tableManagement.RoomId = (int)item.RoomId;
+                    tableManagementModels.Add(tableManagement);
+                }
+                return tableManagementModels;
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+
         public TableManagementModel getTableByID(int id)
         {
             try
@@ -208,6 +257,43 @@ namespace POSS.Repository
             catch (Exception e)
             {
                 throw e;
+            }
+        }
+
+        public bool InsertTable(TableManagementModel tableManagementModel)
+        {
+            try
+            {
+                if (tableManagementModel.id > 0)
+                {
+                    TableManagement  table = posDatabase.TableManagements.Where(x => x.Id == tableManagementModel.id).FirstOrDefault();
+                    if (table == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        table.NoOfChair = tableManagementModel.NoOfChair;
+                        table.TableNo = tableManagementModel.TableNo;
+                        table.RoomId = tableManagementModel.RoomId;                     
+                        posDatabase.SaveChanges();
+                        return true;
+                    }
+                }
+                else
+                {
+                    TableManagement table = new TableManagement();
+                    table.NoOfChair = tableManagementModel.NoOfChair;
+                    table.TableNo = tableManagementModel.TableNo;
+                    table.RoomId = tableManagementModel.RoomId; 
+                    posDatabase.TableManagements.Add(table);
+                    posDatabase.SaveChanges();
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
     }
