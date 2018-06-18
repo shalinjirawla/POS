@@ -50,7 +50,7 @@
 
 	.mycardItems {
 		border-radius: .25rem;
-		height: 70px;
+		height: 90px;
 		border: 1px solid;
 	}
 
@@ -135,13 +135,13 @@
 						</div>
 					</div>
 					<div class="col-md-5 mds cardCustom mycardItems" style="margin:3px;margin-top:9px;" ng-repeat="data in Extras">
-						<h5 class="txtTitle text-center">{{data.Name}}</h5>
-						<i class="fa fa-minus" aria-hidden="true" style="margin-left: 5px;z-index:100;
-						position: relative;bottom: -3px;" ng-click="removeTagItems(data.id)"></i>
-						<p class="text-center" style="position: relative;bottom: 22px;">
+						<h5 class="txtTitle text-center myheight">{{data.Name}}</h5>
+						<i class="fa fa-minus" aria-hidden="true" style="margin-left: 2px;z-index: 100;position: relative;
+    bottom: 5px;font-size:20px;" ng-click="removeTagItems(data.id)"></i>
+						<p class="text-center" style="position: relative;bottom: 32px;">
 							Price : {{ data.TagPrice }}
 						</p>
-						<i class="fa fa-plus" aria-hidden="true" style="right: -118px;position: relative;bottom: 62px;" ng-click="addBanner(data)"></i>
+						<i class="fa fa-plus" aria-hidden="true" style="right: -128px;position: relative;bottom: 71px;font-size:20px;" ng-click="addBanner(data)"></i>
 						<p class="orderTag_id{{ data.id }}" style="display:none">{{ data.id }}</p>
 					</div>
 				</div>
@@ -152,65 +152,6 @@
 				</button>
 			</div>
 			<div class="row margin10">
-				<div class="col-md-12 ">
-					@*<div class="form-group row">
-							<div class="col-md-4">
-								Main Item
-							</div>
-							<div class="col-md-3">
-								Quantity
-							</div>
-							<div class="col-md-3">
-								Price
-							</div>
-							<div class="col-md-2">
-								Delete
-							</div>
-						</div>
-						<div class="form-group row" ng-repeat="data in tagsList">
-							<div class="col-md-4">
-								{{data.TagName}}
-							</div>
-							<div class="col-md-3">
-								<input type="number" class="form-control" ng-model="data.Qty" ng-change="changetagData(data.Qty,data)" />
-							</div>
-							<div class="col-md-3">
-								<input type="number" class="form-control" readonly value="{{data.Tagprice * data.Qty}}" />
-							</div>
-							<div class="col-md-2">
-								<i class="fa fa-remove" ng-click="deleteTagItem(data)"></i>
-							</div>
-						</div>*@
-
-					@*<div class="form-group row">
-							<div class="col-md-4">
-									{{data.ItemName}}
-								</div>
-								<div class="col-md-3">
-									<input type="number" class="form-control" ng-model="data.Qty" ng-change="changeData(data.Qty,data)" />
-								</div>
-								<div class="col-md-3">
-									<input type="number" class="form-control" readonly value="{{data.ItemPrice * data.Qty}}" />
-								</div>
-								<div class="col-md-2">
-									<i class="fa fa-remove" ng-click="deleteItem(data)"></i>
-								</div>
-
-						</div>*@
-
-
-					@*<div class="row" ng-style="{ 'display' : (getTotal() == 0) ? 'none' : 'visible' }">
-							<div class="col-md-3"></div>
-							<div class="col-md-3 text-center">
-								<button class="btn btn-warning" ng-click="addOrders()">Order</button>
-							</div>
-							<div class="col-md-3 text-center">
-								<button class="btn btn-primary">Pay ${{ getTotal() }} Amount</button>
-							</div>
-							<div class="col-md-3"></div>
-						</div>*@
-				</div>
-
 				<div class="sp-bill" ng-style="{ 'display' : (getTotal() == 0) ? 'none' : 'visible' }">
 					<div class="sp-sold-items-scroll">
 						<table class="table table-hover sp-product-list">
@@ -254,12 +195,13 @@
 						</table>
 						
 						<div class="row margin10">
-							<div class="col-md-6">
+							@*<div class="col-md-6">
 								<button class="btn btn-warning btn-block" ng-click="addOrders()">Order</button>
 							</div>
 							<div class="col-md-6">
 								<button class="btn btn-success btn-block">Pay ₹{{ getTotal() }} Amount</button>
-							</div>
+							</div>*@
+							<button class="btn btn-warning btn-block" ng-click="addOrders()">Confirm</button>
 						</div>
 					</div>
 				</div>
@@ -300,14 +242,4 @@
 	.btn-group-justified > .btn-group .btn {
 		width: 100%;
 	}
-
-
 </style>
-<script>
-	debugger
-	var parser = new UAParser();
-	var result = parser.getResult();
-	//Possible 'device.type':
-	//console, mobile, tablet, smarttv, wearable, embedded
-	console.log(result.device.type); 
-</script>

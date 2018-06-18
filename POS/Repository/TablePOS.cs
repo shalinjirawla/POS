@@ -14,6 +14,7 @@ namespace POSS.Repository
         public TablePOS(PosDatabaseEntities _posDatabase)
         {
             posDatabase = _posDatabase;
+          //  posDatabase.Configuration.LazyLoadingEnabled = false;
         }
 
         public bool DeleteTable(int id)
@@ -185,7 +186,8 @@ namespace POSS.Repository
                         Qty = y.Qty,
                         Tag = y.OrderItemTags.Select(z => new Tag1()
                         {
-                            TagId = z.TagId
+                            TagId = z.TagId,
+                            Qty = (int)z.Qty
                         }).ToList()
                     }).ToList()
                 }).ToList();
@@ -296,14 +298,16 @@ namespace POSS.Repository
                 throw;
             }
         }
-        public bool SaveOrder(OrderModel model)
+        public OrderInfo SaveOrder(OrderModel model)
         {
             try
             {
+                OrderInfo info = new OrderInfo();
                 int orderid = model.orderid;
                 if (model.Item == null)
                 {
-                    return false;
+                    info.Status = "Failed";
+                    return info;
                 }
                 else
                 {
@@ -312,7 +316,7 @@ namespace POSS.Repository
                         var ordertotal = posDatabase.Orders.Where(x => x.Id == orderid).FirstOrDefault();
                         ordertotal.Amount = model.Amount;
                         posDatabase.SaveChanges();
-
+                      
                         foreach (var items in model.Item)
                         {
                             OrderItem orderItem = new OrderItem();
@@ -334,7 +338,10 @@ namespace POSS.Repository
                                 }
                             }
                         }
-                        return true;
+                        info.OrderId = orderid;
+                        info.TableNo = (int)ordertotal.TableNo;
+                        info.Status = "Success";
+                        return info;
                     }
                     else
                     {
@@ -346,30 +353,36 @@ namespace POSS.Repository
                         posDatabase.Orders.Add(order);
                         posDatabase.SaveChanges();
 
-                        foreach (var item in model.Item)
+                        if (model.Item != null)
                         {
-                            OrderItem OrderItem = new OrderItem();
-                            OrderItem.ItemId = item.orderItemId;
-                            OrderItem.Qty = item.Qty;
-                            OrderItem.OrderId = order.Id;
-
-                            posDatabase.OrderItems.Add(OrderItem);
-                            posDatabase.SaveChanges();
-
-                            if (item.Tag != null)
+                            foreach (var item in model.Item)
                             {
-                                foreach (var item1 in item.Tag)
+                                OrderItem OrderItem = new OrderItem();
+                                OrderItem.ItemId = item.orderItemId;
+                                OrderItem.Qty = item.Qty;
+                                OrderItem.OrderId = order.Id;
+
+                                posDatabase.OrderItems.Add(OrderItem);
+                                posDatabase.SaveChanges();
+
+                                if (item.Tag != null)
                                 {
-                                    OrderItemTag orderitemtag = new OrderItemTag();
-                                    orderitemtag.OrderItemId = OrderItem.Id;
-                                    orderitemtag.TagId = item1.TagId;
-                                    orderitemtag.Qty = item1.Qty;
-                                    posDatabase.OrderItemTags.Add(orderitemtag);
-                                    posDatabase.SaveChanges();
+                                    foreach (var item1 in item.Tag)
+                                    {
+                                        OrderItemTag orderitemtag = new OrderItemTag();
+                                        orderitemtag.OrderItemId = OrderItem.Id;
+                                        orderitemtag.TagId = item1.TagId;
+                                        orderitemtag.Qty = item1.Qty;
+                                        posDatabase.OrderItemTags.Add(orderitemtag);
+                                        posDatabase.SaveChanges();
+                                    }
                                 }
                             }
                         }
-                        return true;
+                        info.OrderId = order.Id;
+                        info.TableNo = (int)order.TableNo;
+                        info.Status = "Success";
+                        return info;
                     }
                 }
             }

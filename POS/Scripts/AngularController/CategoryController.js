@@ -2,11 +2,14 @@
 
 	angular.element(document).ready(function () {
 		debugger
+		localStorage.setItem("TableId", TabId)
+		localStorage.setItem("OrderId", OrderID);
+
 		if (OrderID != 0) {
 			var data = {
 				"id": TabId,
 				"orderid": OrderID
-			};
+			};	
 			$scope.TableAndOrder(data);
 
 		} else {
@@ -44,7 +47,6 @@
 
 	$scope.TableAndOrder = function (data) {
 		Table_Service.loadTablewithOrderId(data).then((response) => {
-			debugger
 			$scope.currentTable = response.data;
 		});
 	};
@@ -104,7 +106,6 @@
 	};
 
 	$scope.removeTagItems = function (id) {
-
 		var a = $('#orTagId_' + id).text();
 		if (a != "") {
 			var b = parseInt(a);
@@ -126,7 +127,7 @@
 	};
 
 	$scope.addOrder = function () {
-
+		debugger
 		var total = 0;
 		for (var i = 0; i < $scope.itemofSelectedTab.length; i++) {
 			var itemPrice = $scope.itemofSelectedTab[i].TagPrice;
@@ -227,23 +228,24 @@
 	};
 
 	$scope.deleteTagItem = function (qn) {
-		$scope.tagsList = $scope.orderList.filter(x => x != qn);
+		debugger
+		$scope.tagsList = $scope.tagsList.filter(x => x != qn);
 	}
 	$scope.deleteItem = function (qn) {
 		$scope.itemsList = $scope.itemsList.filter(x => x != qn);
 	}
 
 	$scope.addOrders = function () {
-
+		
 		var currDate = CurrentDate();
 
 		$scope.finalMenu["Date"] = currDate;
 		$scope.finalMenu["IsPaid"] = false;
 
 		Table_Service.SaveOrderDetail($scope.finalMenu).then((response) => {
-
-			localStorage.removeItem("TableId");
-			localStorage.removeItem("OrderId");
+			debugger
+			//localStorage.removeItem("TableId");
+			//localStorage.removeItem("OrderId");
 		});
 	};
 

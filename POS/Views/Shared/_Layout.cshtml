@@ -22,8 +22,8 @@
     <link href="~/Content/sweetalert.css" rel="stylesheet" />
     <script src="~/Scripts/sweetalert.min.js"></script>
     <script src="~/Scripts/AngularServices/Order_Service.js"></script>
-	<script type='text/javascript' src="//wurfl.io/wurfl.js"></script>
-	<script src="~/Scripts/ua-parser.min.js"></script>
+	@*<script type='text/javascript' src="//wurfl.io/wurfl.js"></script>
+	<script src="~/Scripts/ua-parser.min.js"></script>*@
 </head>
 <body ng-app="MyRestoApp" ng-controller="MyRestoController">
 
@@ -47,7 +47,7 @@
 							</div>
 							<div id="collapseTwo" class="panel-collapse collapse">
 								<div class="panel-body" style="margin-left:15px;">
-									<table class="magtable">
+									@*<table class="magtable">
 										<tr>
 											<td>
 												<a href="@Url.Action("CategoryList","Home")">Category</a>
@@ -78,7 +78,28 @@
 												<a href="@Url.Action("OrderList","Home")">Report</a>
 											</td>
 										</tr>
-									</table>
+									</table>*@
+									<ul class="nav nav-pills flex-column sidebar-nav">
+										<li class="nav-item">
+											<a class="nav-link" href="@Url.Action("CategoryList","Home")">Category</a>
+										</li>
+
+										<li class="nav-item">
+											<a class="nav-link" href="@Url.Action("ItemList","Home")">Item</a>
+										</li>
+
+										<li class="nav-item">
+											<a class="nav-link" href="@Url.Action("RoomList","Home")">Room</a>
+										</li>
+
+										<li class="nav-item">
+											<a class="nav-link" href="@Url.Action("TableList","Home")">Table</a>
+										</li>
+
+										<li class="nav-item">
+											<a class="nav-link" href="@Url.Action("OrderList","Home")">Report</a>
+										</li>
+									</ul>
 								</div>
 							</div>
 						</div>
@@ -88,6 +109,7 @@
 					<li class="nav-item"><a class="nav-link" href="javascript:;"><em class="fa fa-pencil-square-o"></em> Forms </a></li>
 					<li class="nav-item"><a class="nav-link" href="javascript:;"><em class="fa fa-clone"></em> Cards</a></li>
 				</ul>
+
 				<a href="login.html" class="logout-button"><em class="fa fa-power-off"></em> Signout</a>
 			</nav>
 			<main class="col-xs-12 col-sm-8 offset-sm-4 col-lg-9 offset-lg-3 col-xl-10 offset-xl-2 pt-3 pl-4">
@@ -97,7 +119,7 @@
 					</div>
 					<div class="dropdown user-dropdown col-md-6 col-lg-4 text-center text-md-right">
 						<a class="btn btn-stripped dropdown-toggle" href="#" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-							<img src="~/Content/image/profile-pic.jpg" alt="profile photo" class="circle float-left profile-photo" width="50" height="auto">
+							<img src="~/Content/image/profile-pic.jpg" alt="profile photo" class="circle float-left profile-photo" width="50" >
 							<div class="username mt-1">
 								<h4 class="mb-1">Username</h4>
 								<h6 class="text-muted">Super Admin</h6>
@@ -121,12 +143,24 @@
 </html>
 <script>
 	$(document).ready(function () {
-		debugger
 		$('#MainDrMenu li a').click(function () {
-			if ($(this).attr('href') == location.pathname.substr(1)) {
-				$('li').removeClass();
+			var currentPage = location.pathname.substr(1).split("/")[1];
+			if ($(this).attr('href') == currentPage) {
+				$('a').removeClass('active');
 				$(this).parent().addClass('active');
 			}
+		});
+	});
+
+	$(function () {
+		var current = location.pathname.substr(1).split("/")[1];
+		$('li a').each(function () {
+			var $this = $(this);
+			if ($this.attr('href').indexOf(current) !== -1) {
+				$this.addClass('active');
+			} else {
+				$this.removeClass('active');
+			}	
 		});
 	});
 </script>

@@ -32,4 +32,10 @@ namespace POSS.ViewModel
         public int Qty { get; set; }
         public int Tagprice { get; set; }
     }
+    public class OrderInfo
+    {
+        public int OrderId { get; set; }
+        public int TableNo { get; set; }
+        public string Status { get; set; }
+    }
 }

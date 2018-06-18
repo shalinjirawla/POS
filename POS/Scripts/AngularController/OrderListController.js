@@ -16,7 +16,7 @@
         paginationPageSize: 25,
         enableSorting: true,
         columnDefs: [
-            { name: 'Id', field: 'Id', width: '150' },
+			{ name: 'Id', field: 'orderid', width: '150' },
             {
                 name: 'Date', field: 'Date', width: '170',
                 cellTemplate: "<div class='ngCellText'>{{row.entity.Date | date:'dd/MM/yy h:mm:ss a'}}</div>"
@@ -29,15 +29,15 @@
                 name: 'Actions',
                 cellTemplate:
                     '<div class="grid-action-cell text-center">' +
-                    '<button class="btn btn-outline-danger" ng-click="grid.appScope.Delete(row.entity.Id)" style="margin-left:10px; margin-bottom: 4px;"><i class="fa fa-trash"></i></button></div>',
+                    '<button class="btn btn-outline-danger" ng-click="grid.appScope.Delete(row.entity.orderid)" style="margin-left:10px; margin-bottom: 4px;"><i class="fa fa-trash"></i></button></div>',
                 width: '100'
             }
         ],
         data: []
     };
 
-    $scope.CallHome = function () {
-
+	$scope.CallHome = function () {
+		debugger
         var aa = Order_Service.getItemLists().then((response) => {
             $scope.gridOptions.data = response['data'];
             $scope.loading = false;

@@ -20,6 +20,6 @@ namespace POSS.Interface
         List<TableManagementModel> GetItemDetail();
         bool InsertTable(TableManagementModel tableManagementModel);
         bool DeleteTable(int id);
-        bool SaveOrder(OrderModel model);
+        OrderInfo SaveOrder(OrderModel model);
     }
 }
