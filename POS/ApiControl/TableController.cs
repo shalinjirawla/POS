@@ -68,5 +68,11 @@ namespace POSS.ApiControl
             var Data = Table.GetItemDetail();
             return Json(Data);
         }
+        [HttpPost]
+        public IHttpActionResult SaveOrder(OrderModel order)
+        {
+            var Data = Table.SaveOrder(order);
+            return Json(Data);
+        }
     }
 }

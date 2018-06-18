@@ -28,7 +28,7 @@
 
 	.price {
 		position: relative;
-		top: 50px;
+		top: 20px;
 	}
 
 	.btnn:hover {
@@ -75,103 +75,192 @@
 	.margin10 {
 		margin-top: 10px;
 	}
-	
+
+	.customHeight {
+		height: 300px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
+
+	.myheight {
+		min-height: 50px;
+	}
 </style>
 
 <div ng-controller="CategoryController">
 	<div class="row" id="uniqUL">
-		<div class="col-md-7 row">
-			<div class="col-md-12">
-				<form class="sp-typeahead-form" novalidate>
-					<div class="form-group">
-						<input class="form-control" id="productSearch" ng-model="productSearch" ng-keyup="FetchData(productSearch)" placeholder="Search items" type="text">
-					</div>
-				</form>
-			</div>
-			<div class="col-md-3">
-				<div>Categories</div>
-				<ul class="nav nav-pills flex-column">
-					<li class="nav-item" ng-repeat="cat in Categories" style="margin:3px;">
-						<input type="button" class="btn btn-outline-info btnn" ng-click="LoadItems(cat.Id)" value="{{cat.Name}}" />
-					</li>
-				</ul>
-			</div>
-
-			<div class="col-md-9">
-				<div class="row ShowData" ng-show="ShowData">
-					<div ng-if="!Items.length">
-						<div class="">
-							No Items Found
+		<div class="col-md-7">
+			<div class="row">
+				<div class="col-md-12">
+					<form class="sp-typeahead-form" novalidate>
+						<div class="form-group">
+							<input class="form-control" id="productSearch" ng-model="productSearch" ng-keyup="FetchData(productSearch)" placeholder="Search items" type="text">
 						</div>
-					</div>
-					<div class="col-md-5 mds cardCustom mycard" style="margin:3px;" ng-repeat="data in Items" ng-click="loadTable(data)">
-						<h5 class="txtTitle text-center" data-placement="top" data-toggle="tooltip" title="{{data.Name}}">{{data.Name}}</h5>
-						<p class="text-center price">
-							Price : {{ data.ItemPrice }}
-						</p>
-						<input type="hidden" class="order_id" value="{{data.Id}}" />
+					</form>
+				</div>
+				<div class="col-md-3">
+					<div>Categories</div>
+					<ul class="nav nav-pills flex-column">
+						<li class="nav-item" ng-repeat="cat in Categories" style="margin:3px;">
+							<input type="button" class="btn btn-outline-info btnn" ng-click="LoadItems(cat.Id)" value="{{cat.Name}}" />
+						</li>
+					</ul>
+				</div>
+
+				<div class="col-md-9">
+					<div class="row ShowData" ng-show="ShowData">
+						<div ng-if="!Items.length">
+							<div class="">
+								No Items Found
+							</div>
+						</div>
+						<div class="col-md-5 mds cardCustom mycard" style="margin:3px;" ng-repeat="data in Items" ng-click="loadTable(data)">
+							<h5 class="txtTitle text-center myheight" title="{{data.Name}}">{{data.Name}}</h5>
+							<p class="text-center price">
+								Price : {{ data.ItemPrice }}
+							</p>
+							<input type="hidden" class="order_id" value="{{data.Id}}" />
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="col-md-5" ng-show="ShowItems" id="itemsdiv">
-			<div class="row" style="height:300px;overflow-x:hidden;overflow-y:scroll;">
-				<div ng-if="!Extras.length">
-					<div class="">
-						No Items Found
+			<div style="height:300px;overflow-x:hidden;overflow-y:scroll;">
+				<div class="row" style="margin-left:0">
+					<div ng-if="!Extras.length">
+						<div class="">
+							No Items Found
+						</div>
 					</div>
-				</div>
-				<div class="col-md-5 mds cardCustom mycardItems" style="margin:3px;margin-top:9px;" ng-repeat="data in Extras">
-					<h5 class="txtTitle text-center">{{data.Name}}</h5>
-					<i class="fa fa-minus" aria-hidden="true" style="margin-left: 5px;z-index:100;
+					<div class="col-md-5 mds cardCustom mycardItems" style="margin:3px;margin-top:9px;" ng-repeat="data in Extras">
+						<h5 class="txtTitle text-center">{{data.Name}}</h5>
+						<i class="fa fa-minus" aria-hidden="true" style="margin-left: 5px;z-index:100;
 						position: relative;bottom: -3px;" ng-click="removeTagItems(data.id)"></i>
-					<p class="text-center" style="position: relative;bottom: 22px;">
-						Price : {{ data.TagPrice }}
-					</p>
-					<i class="fa fa-plus" aria-hidden="true" style="right: -118px;position: relative;bottom: 62px;" ng-click="addBanner(data)"></i>
-					<p class="orderTag_id{{ data.id }}" style="display:none">{{ data.id }}</p>
+						<p class="text-center" style="position: relative;bottom: 22px;">
+							Price : {{ data.TagPrice }}
+						</p>
+						<i class="fa fa-plus" aria-hidden="true" style="right: -118px;position: relative;bottom: 62px;" ng-click="addBanner(data)"></i>
+						<p class="orderTag_id{{ data.id }}" style="display:none">{{ data.id }}</p>
+					</div>
 				</div>
 			</div>
 			<div class="row margin10">
-				<button class="btn btn-block" ng-click="addOrder()" style="background-color:#ffa300;color:white;">
+				<button class="btn btn-block" ng-click="addOrder()" style="background-color:#363663;color:white;">
 					Add to order
 				</button>
 			</div>
 			<div class="row margin10">
-				<div class="col-md-12">
-					<div class="form-group row">
-						<div class="col-md-4">
-							Main Item
+				<div class="col-md-12 ">
+					@*<div class="form-group row">
+							<div class="col-md-4">
+								Main Item
+							</div>
+							<div class="col-md-3">
+								Quantity
+							</div>
+							<div class="col-md-3">
+								Price
+							</div>
+							<div class="col-md-2">
+								Delete
+							</div>
 						</div>
-						<div class="col-md-3">
-							Quantity
-						</div>
-						<div class="col-md-3">
-							Price
-						</div>
-						<div class="col-md-2">
-							Delete
-						</div>
-					</div>
+						<div class="form-group row" ng-repeat="data in tagsList">
+							<div class="col-md-4">
+								{{data.TagName}}
+							</div>
+							<div class="col-md-3">
+								<input type="number" class="form-control" ng-model="data.Qty" ng-change="changetagData(data.Qty,data)" />
+							</div>
+							<div class="col-md-3">
+								<input type="number" class="form-control" readonly value="{{data.Tagprice * data.Qty}}" />
+							</div>
+							<div class="col-md-2">
+								<i class="fa fa-remove" ng-click="deleteTagItem(data)"></i>
+							</div>
+						</div>*@
 
-					<div class="form-group row" ng-repeat="data in orderList">
-						<div class="col-md-4">
-							{{data.Name}}
+					@*<div class="form-group row">
+							<div class="col-md-4">
+									{{data.ItemName}}
+								</div>
+								<div class="col-md-3">
+									<input type="number" class="form-control" ng-model="data.Qty" ng-change="changeData(data.Qty,data)" />
+								</div>
+								<div class="col-md-3">
+									<input type="number" class="form-control" readonly value="{{data.ItemPrice * data.Qty}}" />
+								</div>
+								<div class="col-md-2">
+									<i class="fa fa-remove" ng-click="deleteItem(data)"></i>
+								</div>
+
+						</div>*@
+
+
+					@*<div class="row" ng-style="{ 'display' : (getTotal() == 0) ? 'none' : 'visible' }">
+							<div class="col-md-3"></div>
+							<div class="col-md-3 text-center">
+								<button class="btn btn-warning" ng-click="addOrders()">Order</button>
+							</div>
+							<div class="col-md-3 text-center">
+								<button class="btn btn-primary">Pay ${{ getTotal() }} Amount</button>
+							</div>
+							<div class="col-md-3"></div>
+						</div>*@
+				</div>
+
+				<div class="sp-bill" ng-style="{ 'display' : (getTotal() == 0) ? 'none' : 'visible' }">
+					<div class="sp-sold-items-scroll">
+						<table class="table table-hover sp-product-list">
+							<thead>
+								<tr>
+									<th>Main Item</th>
+									<th>Quantity</th>
+									<th><span class="sp-padright-10"></span>Price</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr ng-repeat="data in itemsList">
+									<td>
+										{{data.ItemName}}
+									</td>
+									<td><input class="form-control sp-short-input" ng-model="data.Qty" ng-change="changeData(data.Qty,data)" min="0" type="number"></td>
+									<td class="sp-product-price">
+										<span class="sp-padright-10"></span>
+										<span class="sp-price">₹{{data.ItemPrice * data.Qty}}</span>
+									</td>
+									<td>
+										<a class="sp-bill-actions" ng-click="deleteItem(data)"><span class="fa fa-trash"></span></a>
+									</td>
+								</tr>
+
+								<tr ng-repeat="data in tagsList">
+									<td>
+										{{data.TagName}}
+									</td>
+									<td><input class="form-control sp-short-input" ng-model="data.Qty" ng-change="changetagData(data.Qty,data)" min="0" type="number"></td>
+									<td class="sp-product-price">
+										<span class="sp-padright-10"></span>
+										<span class="sp-price">₹{{data.Tagprice * data.Qty}}</span>
+									</td>
+									<td>
+										<a class="sp-bill-actions" ng-click="deleteTagItem(data)"><span class="fa fa-trash"></span></a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						
+						<div class="row margin10">
+							<div class="col-md-6">
+								<button class="btn btn-warning btn-block" ng-click="addOrders()">Order</button>
+							</div>
+							<div class="col-md-6">
+								<button class="btn btn-success btn-block">Pay ₹{{ getTotal() }} Amount</button>
+							</div>
 						</div>
-						<div class="col-md-3">
-							<input type="number" class="form-control" value="{{data.Quantity}}" ng-model="quantity" ng-change="changeData(quantity,data)"/>
-						</div>
-						<div class="col-md-3">
-							<input type="number" class="form-control" readonly value="{{data.ItemPrice * data.Quantity}}" />
-						</div>
-						<div class="col-md-2">
-							<i class="fa fa-remove" ng-click="deleteItem(data)"></i>
-						</div>
-					</div>
-					
-					<div class="" ng-style="{ 'display' : (getTotal() == 0) ? 'none' : 'visible' }">
-						<button class="btn btn-danger">Order</button>
-						<button class="btn btn-primary">Pay ${{ getTotal() }} Amount</button>
 					</div>
 				</div>
 			</div>
@@ -179,3 +268,46 @@
 	</div>
 </div>
 
+<style>
+	.sp-bill {
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-bottom: 10px;
+		background-color: #f5f5f5;
+	}
+
+	.sp-panel-header {
+		padding-top: 10px;
+		margin-bottom: 9px;
+	}
+
+	.sp-sold-items-scroll {
+		max-height: calc(100vh - 356px)!important;
+		max-height: -moz-calc(100vh - 356px);
+		max-height: -webkit-calc(100vh - 356px);
+		overflow-y: auto;
+		overflow-x: hidden;
+	}
+
+	.sp-product-list {
+		margin-bottom: 0;
+	}
+
+	.sp-bill tbody {
+		font-size: 15px;
+	}
+
+	.btn-group-justified > .btn-group .btn {
+		width: 100%;
+	}
+
+
+</style>
+<script>
+	debugger
+	var parser = new UAParser();
+	var result = parser.getResult();
+	//Possible 'device.type':
+	//console, mobile, tablet, smarttv, wearable, embedded
+	console.log(result.device.type); 
+</script>

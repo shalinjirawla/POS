@@ -49,7 +49,7 @@ namespace POSS.Repository
                     foreach (var item in query)
                     {
                         OrderModel mod = new OrderModel();
-                        mod.Id = item.Id;
+                        mod.orderid = item.Id;
                         mod.IsPaid = item.IsPaid;
                         mod.Amount = item.Amount;
                         mod.Date = item.Date;
@@ -294,6 +294,88 @@ namespace POSS.Repository
             catch (Exception)
             {
                 throw;
+            }
+        }
+        public bool SaveOrder(OrderModel model)
+        {
+            try
+            {
+                int orderid = model.orderid;
+                if (model.Item == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    if (orderid != 0)
+                    {
+                        var ordertotal = posDatabase.Orders.Where(x => x.Id == orderid).FirstOrDefault();
+                        ordertotal.Amount = model.Amount;
+                        posDatabase.SaveChanges();
+
+                        foreach (var items in model.Item)
+                        {
+                            OrderItem orderItem = new OrderItem();
+                            orderItem.ItemId = items.orderItemId;
+                            orderItem.Qty = (int)items.Qty;
+                            orderItem.OrderId = orderid;
+                            posDatabase.OrderItems.Add(orderItem);
+                            posDatabase.SaveChanges();
+
+                            if (items.Tag != null)
+                            {
+                                foreach (var item1 in items.Tag)
+                                {
+                                    OrderItemTag orderitemtag = new OrderItemTag();
+                                    orderitemtag.OrderItemId = orderItem.Id;
+                                    orderitemtag.TagId = item1.TagId;
+                                    posDatabase.OrderItemTags.Add(orderitemtag);
+                                    posDatabase.SaveChanges();
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        Order order = new Order();
+                        order.TableNo = model.TableNo;
+                        order.Date = DateTime.Now;
+                        order.IsPaid = false;
+                        order.Amount = model.Amount;
+                        posDatabase.Orders.Add(order);
+                        posDatabase.SaveChanges();
+
+                        foreach (var item in model.Item)
+                        {
+                            OrderItem OrderItem = new OrderItem();
+                            OrderItem.ItemId = item.orderItemId;
+                            OrderItem.Qty = item.Qty;
+                            OrderItem.OrderId = order.Id;
+
+                            posDatabase.OrderItems.Add(OrderItem);
+                            posDatabase.SaveChanges();
+
+                            if (item.Tag != null)
+                            {
+                                foreach (var item1 in item.Tag)
+                                {
+                                    OrderItemTag orderitemtag = new OrderItemTag();
+                                    orderitemtag.OrderItemId = OrderItem.Id;
+                                    orderitemtag.TagId = item1.TagId;
+                                    orderitemtag.Qty = item1.Qty;
+                                    posDatabase.OrderItemTags.Add(orderitemtag);
+                                    posDatabase.SaveChanges();
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw e;
             }
         }
     }

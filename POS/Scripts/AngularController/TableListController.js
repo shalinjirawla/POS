@@ -18,9 +18,7 @@
         columnDefs: [
             { name: 'id', field: 'id', width: '150' },
             { name: 'TableNo', field: 'TableNo', width: '600' },
-            { name: 'NoOfChair', field: 'NoOfChair', width: '240' },
-        
-
+            { name: 'NoOfChair', field: 'NoOfChair', width: '200' },
             {
                 name: 'Actions',
                 cellTemplate:
@@ -46,7 +44,6 @@
     };
 
     $scope.Delete = function (id) {
-        debugger
         Table_Service.deleteCategory(id).then((response) => {
             swal("Success", "Data Saved", "success", {
                 button: "Aww yiss!",
@@ -56,7 +53,6 @@
     };
 
     $scope.OpenModal = function () {
-
         $("#myModal").modal("show");
         $scope.showModal = true;
     };

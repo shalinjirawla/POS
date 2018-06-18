@@ -17,6 +17,7 @@ namespace POSS.Models
         public int id { get; set; }
         public Nullable<int> OrderItemId { get; set; }
         public Nullable<int> TagId { get; set; }
+        public Nullable<int> Qty { get; set; }
     
         public virtual OrderItem OrderItem { get; set; }
     }

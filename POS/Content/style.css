@@ -864,3 +864,6 @@ table, td, tr, th, thead {
         display: flex;
         align-content: stretch;
     }
+.gridHeight{
+	height:450px;
+}

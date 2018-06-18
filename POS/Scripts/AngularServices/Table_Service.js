@@ -9,7 +9,7 @@
 		return $http.get("/api/Table/GetTableById/", { params: { "id": id } });
 	};
 	service.loadTablewithOrderId = function (data) {
-		return $http.get("/api/Table/GetTableById/", { params: { "id": data.id, "orderid": data.orderid } });
+		return $http.get("/api/Table/GetTableByIdandOrder/", { params: { "id": data.id, "orderid": data.orderid } });
     };
     service.GetItemDetail = function () {
         return $http.get("/api/Table/GetItemDetail/");
@@ -22,6 +22,9 @@
     };
     service.deleteCategory = function (id) {
         return $http.delete("/api/Table/deleteTable/", { params: { "id": id } });
-    };
+	};
+	service.SaveOrderDetail = function (order) {
+		return $http.post("/api/Table/SaveOrder/", order);
+	};
 	return service;
 });

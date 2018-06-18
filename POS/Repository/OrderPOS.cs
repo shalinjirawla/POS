@@ -54,7 +54,7 @@ namespace POSS.Repository
                 foreach (var item in query)
                 {
                     OrderModel orderModel = new OrderModel();
-                    orderModel.Id = item.Id;
+                    orderModel.orderid = item.Id;
                     orderModel.Date = item.Date;
                     orderModel.IsPaid = item.IsPaid;
                     orderModel.TableNo = item.TableNo;

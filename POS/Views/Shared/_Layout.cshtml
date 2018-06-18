@@ -6,7 +6,6 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jquery")
-    @*@Scripts.Render("~/bundles/AngularUIGrid")*@
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/angular.min.js"></script>
@@ -23,6 +22,8 @@
     <link href="~/Content/sweetalert.css" rel="stylesheet" />
     <script src="~/Scripts/sweetalert.min.js"></script>
     <script src="~/Scripts/AngularServices/Order_Service.js"></script>
+	<script type='text/javascript' src="//wurfl.io/wurfl.js"></script>
+	<script src="~/Scripts/ua-parser.min.js"></script>
 </head>
 <body ng-app="MyRestoApp" ng-controller="MyRestoController">
 
@@ -32,7 +33,7 @@
 				<h1 class="site-title"><a href="index.html"><em class="fa fa-rocket"></em>POS</a></h1>
 
 				<a href="#menu-toggle" class="btn btn-default" id="menu-toggle"><em class="fa fa-bars"></em></a>
-				<ul class="nav nav-pills flex-column sidebar-nav">
+				<ul class="nav nav-pills flex-column sidebar-nav" id="MainDrMenu">
 					<li class="nav-item"><a class="nav-link active" href="javascript:;"><em class="fa fa-dashboard"></em> Dashboard <span class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="@Url.Action("Room","Home")"><em class="fa fa-calendar-o"></em> Rooms </a></li>
 					<li>
@@ -74,7 +75,7 @@
 										</tr>
 										<tr>
 											<td>
-												<a href="#">Report</a>
+												<a href="@Url.Action("OrderList","Home")">Report</a>
 											</td>
 										</tr>
 									</table>
@@ -118,3 +119,14 @@
 	</div>
 </body>
 </html>
+<script>
+	$(document).ready(function () {
+		debugger
+		$('#MainDrMenu li a').click(function () {
+			if ($(this).attr('href') == location.pathname.substr(1)) {
+				$('li').removeClass();
+				$(this).parent().addClass('active');
+			}
+		});
+	});
+</script>

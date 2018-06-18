@@ -10,10 +10,6 @@
     $scope.myData = [];
     $scope.loading = true;
     $scope.showModal = false;
-    //{
-    //	name: 'Action',
-    //		cellTemplate: '<div><button class="btn-primary" ng-click="grid.appScope.ShowData(row.entity.Name)">Edit</button></div>',
-    //}
 
     $scope.gridOptions = {
         paginationPageSizes: [25, 50, 75],
@@ -60,22 +56,21 @@
 
     $scope.getCategories = function () {
         debugger
-        Tag_Service.getItemLists().then((response) => {
+		Tag_Service.getTagLists().then((response) => {
             $scope.Categories = response.data;
         });
     };
     $scope.saveCategory = function () {   
         var tagModel = {
-           
             id: $scope.FormData.id,
             Name: $scope.FormData.Name,
             Description: $scope.FormData.Description,
             ItemId: $scope.FormData.ItemId,
             TagPrice: $scope.FormData.TagPrice
         };
-        debugger
-        Tag_Service.saveCategory(tagModel).then((response) => {
-            debugger
+        
+        Tag_Service.saveTag(tagModel).then((response) => {
+            
             swal("Success", "Data Saved", "success", {
                 button: "Aww yiss!",
             });
@@ -85,7 +80,7 @@
         });
     };
     $scope.EditData = function (id) {
-        Tag_Service.editCategory(id).then((response) => {
+        Tag_Service.editTag(id).then((response) => {
             debugger
             response.data.CategoryId = "" + response.data.CategoryId;
             $scope.FormData = response.data;

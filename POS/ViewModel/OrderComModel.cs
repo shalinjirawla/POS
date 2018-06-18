@@ -15,7 +15,6 @@ namespace POSS.ViewModel
     }
     public class OrderComModel
     {
-        //  public int Id { get; set; }
         public int? TableNO { get; set; }
         public Double? TotalAmount { get; set; }
         public Double? TotalAmountforTransaction { get; set; }
@@ -39,5 +38,6 @@ namespace POSS.ViewModel
     {
         public int? TagId { get; set; }
         public string TagName { get; set; }
+        public int Qty { get; set; }
     }
 }

@@ -5,13 +5,13 @@
     service.GettagsWithoutId = function () {
         return $http.get("/api/tag/getTagsWithoutId")
     }
-    service.getItemLists = function (id) {
-        return $http.get("/api/tag/GetTagsById/");
+    service.getTagLists = function (id) {
+		return $http.get("/api/tag/GetTagsById/", { params: { "id": id } });
     };
-    service.saveCategory = function (tagModel) {
+    service.saveTag = function (tagModel) {
         return $http.post("/api/tag/insertTag/", tagModel);
     };
-    service.editCategory = function (id) {
+    service.editTag = function (id) {
         return $http.get("/api/tag/getItemById/", { params: { "id": id } });
     };
     service.DeleteTag = function (id) {

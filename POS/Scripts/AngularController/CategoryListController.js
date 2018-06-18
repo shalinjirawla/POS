@@ -17,7 +17,7 @@
         enableSorting: true,
         columnDefs: [
             { name: 'Id', field: 'Id', width: '150' },
-            { name: 'Name', field: 'Name', width: '800' },
+            { name: 'Name', field: 'Name', width: '750' },
          
             {
                 name: 'Actions',
@@ -31,19 +31,11 @@
         data: []
     };
 
-    //$scope.getCategoryList = function () {
-    //    var aa = Item_Service.getItemLists().then((response) => {
-    //        $scope.gridOptions.data = response['data'];
-    //        $scope.loading = false;
-    //    });
-    //};
-
     $scope.ShowData = function (val) {
         $scope.EditData(val);
     };
 
     $scope.Delete = function (id) {
-        debugger
         Category_Service.deleteCategory(id).then((response) => {
             swal("Success", "Data Saved", "success", {
                 button: "Aww yiss!",
@@ -80,7 +72,6 @@
         });
     };
     $scope.EditData = function (id) {
-        debugger
         Category_Service.editCategory(id).then((response) => {
             response.data.CategoryId = "" + response.data.CategoryId;
             $scope.FormData = response.data;
