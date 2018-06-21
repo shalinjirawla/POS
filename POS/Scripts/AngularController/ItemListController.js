@@ -16,17 +16,17 @@
 		paginationPageSize: 25,
 		enableSorting: true,
 		columnDefs: [
-			{ name: 'Id', field: 'Id', width: '150'  },
-			{ name: 'Name', field: 'Name', width: '170'  },
-			{ name: 'Description', field: 'Description' },
-			{ name: 'Price', field: 'ItemPrice',width:'80' },
+			{ name: 'Id', field: 'Id', width: '10%'  },
+			{ name: 'Name', field: 'Name', width: '30%'  },
+			{ name: 'Description', field: 'Description', width:'40%' },
+			{ name: 'Price', field: 'ItemPrice',width:'10%' },
 			{
 				name: 'Actions',
 				cellTemplate:
 					'<div class="grid-action-cell text-center">' +
 					'<button class="btn btn-outline-warning" ng-click="grid.appScope.EditData(row.entity.Id)"><i class="fa fa-edit"></i></button>' +
 				'<button class="btn btn-outline-danger" ng-click="grid.appScope.Delete(row.entity.Id)" style="margin-left:10px;"><i class="fa fa-trash"></i></button></div>',
-                width: '100' 
+                width: '10%' 
 			}	
 		],
 		data: []

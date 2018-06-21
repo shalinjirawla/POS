@@ -16,16 +16,16 @@
         paginationPageSize: 25,
         enableSorting: true,
         columnDefs: [
-            { name: 'id', field: 'id', width: '150' },
-            { name: 'TableNo', field: 'TableNo', width: '600' },
-            { name: 'NoOfChair', field: 'NoOfChair', width: '200' },
+			{ name: 'id', field: 'id', width: '10%' },
+            { name: 'TableNo', field: 'TableNo', width: '40%' },
+            { name: 'NoOfChair', field: 'NoOfChair', width: '35%' },
             {
                 name: 'Actions',
                 cellTemplate:
                     '<div class="grid-action-cell text-center">' +
                     '<button class="btn btn-outline-warning" ng-click="grid.appScope.EditData(row.entity.id)"><i class="fa fa-edit"></i></button>' +
                     '<button class="btn btn-outline-danger" ng-click="grid.appScope.Delete(row.entity.id)" style="margin-left:10px; margin-bottom: 4px;"><i class="fa fa-trash"></i></button></div>',
-                width: '140'
+                width: '15%'
             }
         ],
         data: []

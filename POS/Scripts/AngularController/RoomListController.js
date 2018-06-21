@@ -19,9 +19,9 @@
         paginationPageSize: 25,
         enableSorting: true,
         columnDefs: [
-            { name: 'id', field: 'id', width: '150' },
-            { name: 'Name', field: 'Name', width: '170' },
-            { name: 'NoOfTables', field: 'NoOfTables' },
+            { name: 'id', field: 'id', width: '10%' },
+            { name: 'Name', field: 'Name', width: '45%' },
+			{ name: 'NoOfTables', field: 'NoOfTables', width: '35%' },
            
             {
                 name: 'Actions',
@@ -29,7 +29,7 @@
                     '<div class="grid-action-cell text-center">' +
                     '<button class="btn btn-outline-warning" ng-click="grid.appScope.EditData(row.entity.id)"><i class="fa fa-edit"></i></button>' +
                     '<button class="btn btn-outline-danger" ng-click="grid.appScope.Delete(row.entity.id)" style="margin-left:10px; margin-bottom: 4px;"><i class="fa fa-trash"></i></button></div>',
-                width: '100'
+                width: '10%'
             }
         ],
         data: []

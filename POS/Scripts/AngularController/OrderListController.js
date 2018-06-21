@@ -16,21 +16,20 @@
         paginationPageSize: 25,
         enableSorting: true,
         columnDefs: [
-			{ name: 'Id', field: 'orderid', width: '150' },
+			{ name: 'Id', field: 'orderid', width: '10%' },
             {
-                name: 'Date', field: 'Date', width: '170',
+                name: 'Date', field: 'Date', width: '30%',
                 cellTemplate: "<div class='ngCellText'>{{row.entity.Date | date:'dd/MM/yy h:mm:ss a'}}</div>"
             },
-            { name: 'IsPaid', field: 'IsPaid' },
-            { name: 'TableNo', field: 'TableNo' },
-            { name: 'Amount', field: 'Amount' },
-
+            { name: 'IsPaid', field: 'IsPaid',width:'15%' },
+            { name: 'TableNo', field: 'TableNo',width:'15%' },
+            { name: 'Amount', field: 'Amount',width:'20%' },
             {
                 name: 'Actions',
                 cellTemplate:
                     '<div class="grid-action-cell text-center">' +
                     '<button class="btn btn-outline-danger" ng-click="grid.appScope.Delete(row.entity.orderid)" style="margin-left:10px; margin-bottom: 4px;"><i class="fa fa-trash"></i></button></div>',
-                width: '100'
+                width: '10%'
             }
         ],
         data: []
