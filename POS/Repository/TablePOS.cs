@@ -14,7 +14,6 @@ namespace POSS.Repository
         public TablePOS(PosDatabaseEntities _posDatabase)
         {
             posDatabase = _posDatabase;
-          //  posDatabase.Configuration.LazyLoadingEnabled = false;
         }
 
         public bool DeleteTable(int id)
@@ -45,7 +44,7 @@ namespace POSS.Repository
             {
                 List<OrderModel> model = new List<OrderModel>();
                 var query = posDatabase.Orders.Where(x => x.IsPaid == false).ToList();
-                if(query.Count() > 0)
+                if (query.Count() > 0)
                 {
                     foreach (var item in query)
                     {
@@ -71,7 +70,7 @@ namespace POSS.Repository
             {
                 List<CategoryModel> categories = new List<CategoryModel>();
                 var query = posDatabase.Categories.ToList();
-                if(query.Count() > 0)
+                if (query.Count() > 0)
                 {
                     foreach (var item in query)
                     {
@@ -94,7 +93,7 @@ namespace POSS.Repository
             {
                 List<ItemModel> listingData = new List<ItemModel>();
                 var data = posDatabase.Items.Where(x => x.CategoryId == id).ToList();
-                if(data.Count() > 0)
+                if (data.Count() > 0)
                 {
                     foreach (var item in data)
                     {
@@ -145,7 +144,7 @@ namespace POSS.Repository
             {
                 var query = posDatabase.TableManagements.Where(x => x.Id == id).FirstOrDefault();
                 TableManagementModel model = new TableManagementModel();
-                if(query != null)
+                if (query != null)
                 {
                     model.id = query.Id;
                     model.NoOfChair = (int)query.NoOfChair;
@@ -164,7 +163,7 @@ namespace POSS.Repository
             try
             {
                 var query = posDatabase.TableManagements.Where(x => x.Id == id).FirstOrDefault();
-
+                var q = posDatabase.Orders.FirstOrDefault(x => x.Id == orderid);
                 TableManagementModel1 model = new TableManagementModel1();
                 if (query != null)
                 {
@@ -172,25 +171,48 @@ namespace POSS.Repository
                     model.NoOfChair = (int)query.NoOfChair;
                     model.RoomId = (int)query.RoomId;
                     model.TableNo = (int)query.TableNo;
+                    model.TotalAmount = q.Amount;
                 }
-                var order = posDatabase.Orders.Where(x => x.Id == orderid).ToList();
-                model.OrderCom = order.Select(x => new OrderComModel()
-                {
-                    orderid = orderid,
-                    TableNO = x.TableNo,
-                    TotalAmount = x.Amount,
-                    Item = x.OrderItems.Select(y => new Item1()
-                    {
-                        orderItemId = y.Id,
-                        ItemID = y.ItemId,
-                        Qty = y.Qty,
-                        Tag = y.OrderItemTags.Select(z => new Tag1()
-                        {
-                            TagId = z.TagId,
-                            Qty = (int)z.Qty
-                        }).ToList()
-                    }).ToList()
-                }).ToList();
+                model.Item = (from ep in posDatabase.OrderItems
+                              join a in posDatabase.Items on ep.ItemId equals a.Id
+                              join b in posDatabase.Categories on a.CategoryId equals b.Id
+                              where ep.OrderId == orderid
+                              select new
+                              {
+                                  ep.Id,
+                                  ep.OrderId,
+                                  ep.ItemId,
+                                  ep.Qty,
+                                  b.Name,
+                                  refer = a.Name,
+                                  a.CategoryId,
+                                  a.ItemPrice
+                              }).Select(y => new Item1()
+                              {
+                                  ItemID = y.ItemId,
+                                  Qty = y.Qty,
+                                  orderItemId = y.Id,
+                                  ItemName = y.Name,
+                                  CategoryName = y.refer,
+                                  CategoryID = y.CategoryId,
+                                  ItemPrice = (float)y.ItemPrice,
+                                  Tag = (from ep in posDatabase.OrderItemTags
+                                         join a in posDatabase.Tags on ep.TagId equals a.id
+                                         where ep.OrderItemId == y.Id
+                                         select new
+                                         {
+                                             ep.TagId,
+                                             ep.Qty,
+                                             a.Name,
+                                             a.TagPrice
+                                         }).Select(z => new Tag1()
+                                         {
+                                             TagId = z.TagId,
+                                             Qty = (int)z.Qty,
+                                             TagName = z.Name,
+                                             TagPrice =(float)z.TagPrice
+                                         }).ToList()
+                              }).ToList();
                 return model;
             }
             catch (Exception e)
@@ -204,10 +226,12 @@ namespace POSS.Repository
             {
                 List<TableManagementModel> tableData = new List<TableManagementModel>();
                 var data = posDatabase.TableManagements.Where(x => x.RoomId == id).ToList();
+
                 if (data.Count() > 0)
                 {
                     foreach (var item in data)
                     {
+                       
                         TableManagementModel listing = new TableManagementModel();
                         listing.id = item.Id;
                         listing.NoOfChair = (int)item.NoOfChair;
@@ -216,12 +240,12 @@ namespace POSS.Repository
                         tableData.Add(listing);
                     }
                     var query = posDatabase.Orders.Where(x => x.IsPaid == false).ToList();
-                    if(query.Count > 0)
+                    if (query.Count > 0)
                     {
                         foreach (var item in query)
                         {
-                            var da = tableData.Where(x => x.TableNo == item.TableNo).FirstOrDefault();
-                            if(da != null)
+                            var da = tableData.Where(x => x.id == item.TableNo).FirstOrDefault();
+                            if (da != null)
                             {
                                 da.orderid = item.Id;
                             }
@@ -268,7 +292,7 @@ namespace POSS.Repository
             {
                 if (tableManagementModel.id > 0)
                 {
-                    TableManagement  table = posDatabase.TableManagements.Where(x => x.Id == tableManagementModel.id).FirstOrDefault();
+                    TableManagement table = posDatabase.TableManagements.Where(x => x.Id == tableManagementModel.id).FirstOrDefault();
                     if (table == null)
                     {
                         return false;
@@ -277,7 +301,7 @@ namespace POSS.Repository
                     {
                         table.NoOfChair = tableManagementModel.NoOfChair;
                         table.TableNo = tableManagementModel.TableNo;
-                        table.RoomId = tableManagementModel.RoomId;                     
+                        table.RoomId = tableManagementModel.RoomId;
                         posDatabase.SaveChanges();
                         return true;
                     }
@@ -287,7 +311,7 @@ namespace POSS.Repository
                     TableManagement table = new TableManagement();
                     table.NoOfChair = tableManagementModel.NoOfChair;
                     table.TableNo = tableManagementModel.TableNo;
-                    table.RoomId = tableManagementModel.RoomId; 
+                    table.RoomId = tableManagementModel.RoomId;
                     posDatabase.TableManagements.Add(table);
                     posDatabase.SaveChanges();
                     return true;
@@ -304,7 +328,7 @@ namespace POSS.Repository
             {
                 OrderInfo info = new OrderInfo();
                 int orderid = model.orderid;
-                if (model.Item == null)
+                if (model.Item == null || model == null)
                 {
                     info.Status = "Failed";
                     return info;
@@ -314,12 +338,13 @@ namespace POSS.Repository
                     if (orderid != 0)
                     {
                         var ordertotal = posDatabase.Orders.Where(x => x.Id == orderid).FirstOrDefault();
-                        ordertotal.Amount = model.Amount;
+                        var amt = ordertotal.Amount == null ? 0 : ordertotal.Amount;
+                        ordertotal.Amount = amt + model.Amount;
                         posDatabase.SaveChanges();
-                      
+
                         foreach (var items in model.Item)
                         {
-                            OrderItem orderItem = new OrderItem();
+                            OrderItem orderItem = new OrderItem(); 
                             orderItem.ItemId = items.orderItemId;
                             orderItem.Qty = (int)items.Qty;
                             orderItem.OrderId = orderid;
@@ -332,6 +357,7 @@ namespace POSS.Repository
                                 {
                                     OrderItemTag orderitemtag = new OrderItemTag();
                                     orderitemtag.OrderItemId = orderItem.Id;
+                                    orderitemtag.Qty = orderItem.Qty;
                                     orderitemtag.TagId = item1.TagId;
                                     posDatabase.OrderItemTags.Add(orderitemtag);
                                     posDatabase.SaveChanges();

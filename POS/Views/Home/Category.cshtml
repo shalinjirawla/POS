@@ -85,6 +85,37 @@
 	.myheight {
 		min-height: 50px;
 	}
+    .sp-bill {
+        padding-left: 10px;
+        padding-right: 10px;
+        padding-bottom: 10px;
+        background-color: #f5f5f5;
+    }
+
+    .sp-panel-header {
+        padding-top: 10px;
+        margin-bottom: 9px;
+    }
+
+    .sp-sold-items-scroll {
+        max-height: calc(100vh - 356px) !important;
+        max-height: -moz-calc(100vh - 356px);
+        max-height: -webkit-calc(100vh - 356px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .sp-product-list {
+        margin-bottom: 0;
+    }
+
+    .sp-bill tbody {
+        font-size: 15px;
+    }
+
+    .btn-group-justified > .btn-group .btn {
+        width: 100%;
+    }
 </style>
 
 <div ng-controller="CategoryController">
@@ -126,120 +157,89 @@
 			</div>
 		</div>
 
-		<div class="col-md-5" ng-show="ShowItems" id="itemsdiv">
-			<div style="height:300px;overflow-x:hidden;overflow-y:scroll;">
-				<div class="row" style="margin-left:0">
-					<div ng-if="!Extras.length">
-						<div class="">
-							No Items Found
-						</div>
-					</div>
-					<div class="col-md-5 mds cardCustom mycardItems" style="margin:3px;margin-top:9px;" ng-repeat="data in Extras">
-						<h5 class="txtTitle text-center myheight">{{data.Name}}</h5>
-						<i class="fa fa-minus" aria-hidden="true" style="margin-left: 2px;z-index: 100;position: relative;
+		<div class="col-md-5" id="itemsdiv">
+            <div ng-show="ShowItems">
+                <div style="height:300px;overflow-x:hidden;overflow-y:scroll;">
+                    <div class="row" style="margin-left:0">
+                        <div ng-if="!Extras.length">
+                            <div class="">
+                                No Items Found
+                            </div>
+                        </div>
+                        <div class="col-md-5 mds cardCustom mycardItems" style="margin:3px;margin-top:9px;" ng-repeat="data in Extras">
+                            <h5 class="txtTitle text-center myheight">{{data.Name}}</h5>
+                            <i class="fa fa-minus" aria-hidden="true" style="margin-left: 2px;z-index: 100;position: relative;
     bottom: 5px;font-size:20px;" ng-click="removeTagItems(data.id)"></i>
-						<p class="text-center" style="position: relative;bottom: 32px;">
-							Price : {{ data.TagPrice }}
-						</p>
-						<i class="fa fa-plus" aria-hidden="true" style="right: -128px;position: relative;bottom: 71px;font-size:20px;" ng-click="addBanner(data)"></i>
-						<p class="orderTag_id{{ data.id }}" style="display:none">{{ data.id }}</p>
-					</div>
-				</div>
-			</div>
-			<div class="row margin10">
+                            <p class="text-center" style="position: relative;bottom: 32px;">
+                                Price : {{ data.TagPrice }}
+                            </p>
+                            <i class="fa fa-plus" aria-hidden="true" style="right: -128px;position: relative;bottom: 71px;font-size:20px;" ng-click="addBanner(data)"></i>
+                            <p class="orderTag_id{{ data.id }}" style="display:none">{{ data.id }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
+			<div class="row margin10" ng-show="ShowItems">
 				<button class="btn btn-block" ng-click="addOrder()" style="background-color:#363663;color:white;">
 					Add to order
 				</button>
 			</div>
-			<div class="row margin10">
+			<div class="row margin10" ng-show="ShowitemsList">
 				<div class="sp-bill" ng-style="{ 'display' : (getTotal() == 0) ? 'none' : 'visible' }">
-					<div class="sp-sold-items-scroll">
-						<table class="table table-hover sp-product-list">
-							<thead>
-								<tr>
-									<th>Main Item</th>
-									<th>Quantity</th>
-									<th><span class="sp-padright-10"></span>Price</th>
-									<th>Action</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr ng-repeat="data in itemsList">
-									<td>
-										{{data.ItemName}}
-									</td>
-									<td><input class="form-control sp-short-input" ng-model="data.Qty" ng-change="changeData(data.Qty,data)" min="0" type="number"></td>
-									<td class="sp-product-price">
-										<span class="sp-padright-10"></span>
-										<span class="sp-price">₹{{data.ItemPrice * data.Qty}}</span>
-									</td>
-									<td>
-										<a class="sp-bill-actions" ng-click="deleteItem(data)"><span class="fa fa-trash"></span></a>
-									</td>
-								</tr>
+                    <div class="sp-sold-items-scroll">
+                        <table class="table table-hover sp-product-list">
+                            <thead>
+                                <tr>
+                                    <th>Main Item</th>
+                                    <th>Quantity</th>
+                                    <th><span class="sp-padright-10"></span>Price</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="data in itemsList">
+                                    <td>
+                                        {{data.ItemName}}
+                                    </td>
+                                    <td><input class="form-control sp-short-input" ng-disabled="data.IsOrdered" ng-model="data.Qty" ng-change="changeData(data.Qty,data)" min="0" type="number"></td>
+                                    <td class="sp-product-price">
+                                        <span class="sp-padright-10"></span>
+                                        <span class="sp-price">₹{{data.ItemPrice * data.Qty}}</span>
+                                    </td>
+                                    <td>
+                                        <a class="sp-bill-actions" ng-if="!data.IsOrdered" ng-click="deleteItem(data)"><span class="fa fa-trash"></span></a>
+                                    </td>
+                                </tr>
 
-								<tr ng-repeat="data in tagsList">
-									<td>
-										{{data.TagName}}
-									</td>
-									<td><input class="form-control sp-short-input" ng-model="data.Qty" ng-change="changetagData(data.Qty,data)" min="0" type="number"></td>
-									<td class="sp-product-price">
-										<span class="sp-padright-10"></span>
-										<span class="sp-price">₹{{data.Tagprice * data.Qty}}</span>
-									</td>
-									<td>
-										<a class="sp-bill-actions" ng-click="deleteTagItem(data)"><span class="fa fa-trash"></span></a>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						
-						<div class="row margin10">
-							@*<div class="col-md-6">
-								<button class="btn btn-warning btn-block" ng-click="addOrders()">Order</button>
-							</div>
-							<div class="col-md-6">
-								<button class="btn btn-success btn-block">Pay ₹{{ getTotal() }} Amount</button>
-							</div>*@
-							<button class="btn btn-warning btn-block" ng-click="addOrders()">Confirm</button>
-						</div>
-					</div>
+                                <tr ng-repeat="data in tagsList">
+                                    <td>
+                                        {{data.TagName}}
+                                    </td>
+                                    <td><input class="form-control sp-short-input" ng-model="data.Qty" ng-disabled="data.IsOrdered" ng-change="changetagData(data.Qty,data)" min="0" type="number"></td>
+                                    <td class="sp-product-price">
+                                        <span class="sp-padright-10"></span>
+                                        <span class="sp-price">₹{{data.Tagprice * data.Qty}}</span>
+                                    </td>
+                                    <td>
+                                        <a class="sp-bill-actions" ng-if="!data.IsOrdered" ng-click="deleteTagItem(data)"><span class="fa fa-trash"></span></a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row margin10">
+                            @*<div class="col-md-6">
+                <button class="btn btn-warning btn-block" ng-click="addOrders()">Order</button>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-success btn-block">Pay ₹{{ getTotal() }} Amount</button>
+            </div>*@
+                            <button class="btn btn-warning btn-block" ng-click="addOrders()" ng-disabled="finalMenu.Item.length == undefined || $scope.finalMenu.Item.length <= 0">Confirm</button>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<style>
-	.sp-bill {
-		padding-left: 10px;
-		padding-right: 10px;
-		padding-bottom: 10px;
-		background-color: #f5f5f5;
-	}
-
-	.sp-panel-header {
-		padding-top: 10px;
-		margin-bottom: 9px;
-	}
-
-	.sp-sold-items-scroll {
-		max-height: calc(100vh - 356px)!important;
-		max-height: -moz-calc(100vh - 356px);
-		max-height: -webkit-calc(100vh - 356px);
-		overflow-y: auto;
-		overflow-x: hidden;
-	}
-
-	.sp-product-list {
-		margin-bottom: 0;
-	}
-
-	.sp-bill tbody {
-		font-size: 15px;
-	}
-
-	.btn-group-justified > .btn-group .btn {
-		width: 100%;
-	}
-</style>

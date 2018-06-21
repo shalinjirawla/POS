@@ -1,5 +1,4 @@
-﻿app.controller("RoomController",  function ($scope, $http, Poss_Service) {
-	
+﻿app.controller("RoomController", function ($scope, $http, Poss_Service) {
 	angular.element(document).ready(function () {
 		$scope.CallHome();
 	});

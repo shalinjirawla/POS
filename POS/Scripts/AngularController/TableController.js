@@ -1,5 +1,5 @@
 ﻿app.controller("TableController", function ($scope, $http, Table_Service) {
-
+    debugger
 	angular.element(document).ready(function () {
 
 		if (GlobId != 0) {
@@ -13,7 +13,8 @@
 
 		});
 	};
-	$scope.loadTable = function (id) {
+    $scope.loadTable = function (id) {
+        debugger
 		var tabid = id.data.id;
 		var orderid = id.data.orderid;
 		window.location.href = '/Home/Category?id=' + tabid + '&orderid=' + orderid;
