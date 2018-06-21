@@ -23,9 +23,9 @@
                 name: 'Actions',
                 cellTemplate:
                     '<div class="grid-action-cell text-center">' +
-                    '<button class="btn btn-outline-warning" ng-click="grid.appScope.EditData(row.entity.Id)"><i class="fa fa-edit"></i></button>' +
-                    '<button class="btn btn-outline-danger" ng-click="grid.appScope.Delete(row.entity.Id)" style="margin-left:10px; margin-bottom: 4px;"><i class="fa fa-trash"></i></button></div>',
-                width: '100'
+                    '<button class="btn btn-outline-warning" ng-click="grid.appScope.EditData(row.entity.id)"><i class="fa fa-edit"></i></button>' +
+                    '<button class="btn btn-outline-danger" ng-click="grid.appScope.Delete(row.entity.id)" style="margin-left:10px; margin-bottom: 4px;"><i class="fa fa-trash"></i></button></div>',
+                width: '140'
             }
         ],
         data: []
@@ -44,8 +44,9 @@
     };
 
     $scope.Delete = function (id) {
+        debugger
         Table_Service.deleteCategory(id).then((response) => {
-            swal("Success", "Data Saved", "success", {
+            swal("Success", "Data Deleted", "success", {
                 button: "Aww yiss!",
             });
             $scope.CallHome();

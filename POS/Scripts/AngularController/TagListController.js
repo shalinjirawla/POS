@@ -42,7 +42,7 @@
 
     $scope.Delete = function (id) {
         Tag_Service.DeleteTag(id).then((response) => {
-            swal("Success", "Data Saved", "success", {
+            swal("Success", "Data Deleted", "success", {
                 button: "Aww yiss!",
             });
             $scope.CallHome();
@@ -56,7 +56,7 @@
 
     $scope.getCategories = function () {
         debugger
-		Tag_Service.getTagLists().then((response) => {
+        Tag_Service.GettagsWithoutId().then((response) => {
             $scope.Categories = response.data;
         });
     };

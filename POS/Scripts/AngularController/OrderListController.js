@@ -50,7 +50,7 @@
 
     $scope.Delete = function (id) {
         Order_Service.deleteCategory(id).then((response) => {
-            swal("Success", "Data Saved", "success", {
+            swal("Success", "Data Deleted", "success", {
                 button: "Aww yiss!",
             });
             $scope.CallHome();

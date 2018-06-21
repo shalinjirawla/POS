@@ -3,6 +3,7 @@
     var service = {};
 
     service.GettagsWithoutId = function () {
+        debugger
         return $http.get("/api/tag/getTagsWithoutId")
     }
     service.getTagLists = function (id) {

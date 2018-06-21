@@ -17,13 +17,14 @@
     <script src="~/Scripts/AngularServices/Table_Service.js"></script>
     <script src="~/Scripts/AngularServices/Category_Service.js"></script>
     <script src="~/Scripts/AngularServices/Item_Service.js"></script>
-    <script src="~/Scripts/AngularServices/Tag_Service.js"></script>
+
     <script src="~/Scripts/AngularServices/Room_Service.js"></script>
     <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <script src="~/Scripts/AngularServices/Tag_Service.js"></script>
     <script src="~/Scripts/sweetalert.min.js"></script>
     <script src="~/Scripts/AngularServices/Order_Service.js"></script>
-	@*<script type='text/javascript' src="//wurfl.io/wurfl.js"></script>
-	<script src="~/Scripts/ua-parser.min.js"></script>*@
+    @*<script type='text/javascript' src="//wurfl.io/wurfl.js"></script>
+        <script src="~/Scripts/ua-parser.min.js"></script>*@
 </head>
 <body ng-app="MyRestoApp" ng-controller="MyRestoController">
 
@@ -79,27 +80,29 @@
 											</td>
 										</tr>
 									</table>*@
-									<ul class="nav nav-pills flex-column sidebar-nav">
-										<li class="nav-item">
-											<a class="nav-link" href="@Url.Action("CategoryList","Home")">Category</a>
-										</li>
+                                    <ul class="nav nav-pills flex-column sidebar-nav">
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="@Url.Action("CategoryList","Home")">Category</a>
+                                        </li>
 
-										<li class="nav-item">
-											<a class="nav-link" href="@Url.Action("ItemList","Home")">Item</a>
-										</li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="@Url.Action("ItemList","Home")">Item</a>
+                                        </li>
 
-										<li class="nav-item">
-											<a class="nav-link" href="@Url.Action("RoomList","Home")">Room</a>
-										</li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="@Url.Action("RoomList","Home")">Room</a>
+                                        </li>
 
-										<li class="nav-item">
-											<a class="nav-link" href="@Url.Action("TableList","Home")">Table</a>
-										</li>
-
-										<li class="nav-item">
-											<a class="nav-link" href="@Url.Action("OrderList","Home")">Report</a>
-										</li>
-									</ul>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="@Url.Action("TableList","Home")">Table</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="@Url.Action("TagList","Home")">Tag</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="@Url.Action("OrderList","Home")">Report</a>
+                                        </li>
+                                    </ul>
 								</div>
 							</div>
 						</div>
