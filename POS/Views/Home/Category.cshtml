@@ -130,6 +130,7 @@
 					</form>
 				</div>
 				<div class="col-md-3">
+
 					<div>Categories</div>
 					<ul class="nav nav-pills flex-column">
 						<li class="nav-item" ng-repeat="cat in Categories" style="margin:3px;">
@@ -230,12 +231,13 @@
 
                         <div class="row margin10">
                             @*<div class="col-md-6">
-                <button class="btn btn-warning btn-block" ng-click="addOrders()">Order</button>
-            </div>
-            <div class="col-md-6">
-                <button class="btn btn-success btn-block">Pay ₹{{ getTotal() }} Amount</button>
-            </div>*@
-                            <button class="btn btn-warning btn-block" ng-click="addOrders()" ng-disabled="finalMenu.Item.length == undefined || $scope.finalMenu.Item.length <= 0">Confirm</button>
+            <button class="btn btn-warning btn-block" ng-click="addOrders()">Order</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-success btn-block">Pay ₹{{ getTotal() }} Amount</button>
+        </div>*@
+                            <button class="btn btn-warning btn-block" ng-click="addOrders()" ng-disabled="finalMenu.Item.length == undefined || finalMenu.Item.length <= 0">Confirm</button>
+                            <button class="btn btn-danger btn-block" ng-click="Paymentfunction()" ng-disabled="finalMenu.Item.length"> Payment </button>
                         </div>
                     </div>
 				</div>

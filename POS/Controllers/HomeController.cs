@@ -62,5 +62,10 @@ namespace POSS.Controllers
             ViewBag.Titel = "OrderList";
             return View();
         }
+        public ActionResult GetReport()
+        {
+            ViewBag.Titel = "GetReport";
+            return View();
+        }
     }
 }

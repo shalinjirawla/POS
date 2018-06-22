@@ -1,5 +1,4 @@
 ﻿app.controller("CategoryController", function ($scope, $http, Table_Service, Category_Service) {
-
     angular.element(document).ready(function () {
         
 		localStorage.setItem("TableId", TabId)
@@ -9,7 +8,8 @@
 			var data = {
 				"id": TabId,
 				"orderid": OrderID
-			};	
+            };
+            $scope.MainOrderID = OrderID;
 			$scope.TableAndOrder(data);
 
 		} else {
@@ -38,17 +38,18 @@
 	$scope.cateitems = [];
 
 	$scope.tagsList = [];
-	$scope.itemsList = [];
-
+    $scope.itemsList = [];
+    
     $scope.TableByID = function (id) {
 		Table_Service.loadTable(id).then((response) => {
 			$scope.currentTable = [];
 			$scope.currentTable = response.data;
 		});
-	};
+    };
 
-    $scope.TableAndOrder = function (data) {
-        
+    $scope.MainOrderID = 0;
+
+    $scope.TableAndOrder = function (data) {  
         Table_Service.loadTablewithOrderId(data).then((response) => {
             $scope.itemsList = [];
             $scope.tagsList = [];
@@ -97,19 +98,19 @@
 	};
 
     $scope.LoadItems = function (id) {
-		Category_Service.getCategoryById(id).then((response) => {
+        Category_Service.getCategoryById(id).then((response) => {
 			$scope.Items = response.data;
 			$scope.ShowData = true;
 		});
-	};
-
+    };  
+ 
     $scope.FetchData = function (val) {
 		Category_Service.getItemsByName(val).then((response) => {
 			$scope.Items = response.data;
 			$scope.ShowData = true;
 		});
-	};
-
+    };
+  
 	$scope.loadTable = function (dat) {
 		$scope.SelectedTable = [];
 		$scope.itemofSelectedTab = [];
@@ -255,14 +256,14 @@
 	$scope.deleteItem = function (qn) {
 		$scope.itemsList = $scope.itemsList.filter(x => x != qn);
 	}
-    $scope.addOrders = function () {
-        
+    $scope.addOrders = function () {       
 		var currDate = CurrentDate();
 		$scope.finalMenu["Date"] = currDate;
         $scope.finalMenu["IsPaid"] = false;
   
-		Table_Service.SaveOrderDetail($scope.finalMenu).then((response) => {
-  
+        Table_Service.SaveOrderDetail($scope.finalMenu).then((response) => {
+            
+            $scope.MainOrderID = response.data.OrderId;
             for (var i = 0; i < $scope.finalMenu.Item.length; i++) {
                 $scope.finalMenu.Item[i].IsOrdered = true;
             };
@@ -272,6 +273,8 @@
             for (var i = 0; i < $scope.tagsList.length; i++) {
                 $scope.tagsList[i].IsOrdered = true;
             };
+
+            $scope.finalMenu.Item = [];
 		});
 	};
     function CurrentDate() {
@@ -289,5 +292,9 @@
 		var today = dd + '/' + mm + '/' + yyyy;
 		return today;
     };
-    
+
+    $scope.Paymentfunction = function () {
+        var OrderId = $scope.MainOrderID;
+        window.location.href = '/Home/GetReport?id=' + OrderId;
+    }
 });

@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "GetReport";
+}
+<script>
+	var TabId = 0;
+	var OrderID = 0;
+	$(document).ready(function () {
+		TabId = @ViewBag.id;
+		OrderID = @ViewBag.orderid;
+	});
+</script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<script src="~/Scripts/AngularController/CategoryController.js"></script>
+<div ng-controller="CategoryController">
+    <i class="fa fa-spinner fa-spin text-center" ng-show="loading"></i>
+    <div class="container">
+        <div class="row">
+            <div class="well col-xs-10 col-sm-10 col-md-6 col-xs-offset-1 col-sm-offset-1 col-md-offset-3">
+                <div class="row">
+                    <div class="text-center">
+                        <h1>Receipt</h1>
+                    </div>
+                    <table class="table table-hover sp-product-list">
+                        <thead>
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Quantity</th>
+                                <th><span class="sp-padright-10"></span>Price</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="data in itemsList">
+                                <td>
+                                    {{data.ItemName}}
+                                </td>
+                                <td><input class="form-control sp-short-input"  ng-model="data.Qty" ng-change="changeData(data.Qty,data)" min="0" type="number"></td>
+                                <td class="sp-product-price">
+                                    <span class="sp-padright-10"></span>
+                                    <span class="sp-price">₹{{data.ItemPrice * data.Qty}}</span>
+                                </td>
+                           
+                            </tr>
+
+                            <tr ng-repeat="data in tagsList">
+                                <td>
+                                    {{data.TagName}}
+                                </td>
+                                <td><input class="form-control sp-short-input" ng-model="data.Qty" ng-change="changetagData(data.Qty,data)" min="0" type="number"></td>
+                                <td class="sp-product-price">
+                                    <span class="sp-padright-10"></span>
+                                    <span class="sp-price">₹{{data.Tagprice * data.Qty}}</span>
+                                </td> 
+                            </tr>
+                            <tr>
+                                <td>   </td>
+                                <td>   </td>
+                                <td class="text-right"><h4><strong>Total: </strong></h4></td>
+                                <td class="text-center text-danger"><h4><strong>{{}}</strong></h4></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-warning btn-lg btn-block">
+                        Pay Now   <span class="glyphicon glyphicon-chevron-right"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
